@@ -1,0 +1,7 @@
+RewriteEngine On
+# Exclude API routes
+RewriteCond %{REQUEST_URI} !^/api/
+# If the requested resource does not exist as a file or directory, serve it from the public folder
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
