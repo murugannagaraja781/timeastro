@@ -5,9 +5,11 @@ import Header from '../components/Header';
 import ClockCard from '../components/ClockCard';
 import NakshatraGrid from '../components/NakshatraGrid';
 import PanchangCard from '../components/PanchangCard';
+import Head from 'next/head';
 
 export default function Home() {
   const [offers, setOffers] = useState<any[]>([]);
+  const [siteTitle, setSiteTitle] = useState('MyAstroLabs');
 
   useEffect(() => {
     fetch('http://localhost/timeastro/api/public/offers.php')
@@ -18,10 +20,22 @@ export default function Home() {
         }
       })
       .catch(console.error);
+
+    fetch('http://localhost/timeastro/api/public/settings.php')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data && data.data.site_title) {
+          setSiteTitle(data.data.site_title);
+        }
+      })
+      .catch(console.error);
   }, []);
 
   return (
     <>
+      <Head>
+        <title>{siteTitle} - Explore the Stars</title>
+      </Head>
       {/* Background – dark galaxy image */}
       <div
         className="fixed inset-0 bg-cover bg-center z-0 particle-bg"

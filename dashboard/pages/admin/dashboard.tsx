@@ -19,6 +19,12 @@ export default function AdminDashboard() {
   const [passwordForm, setPasswordForm] = useState({ old_password: '', new_password: '' });
   const [autoApprove, setAutoApprove] = useState('0');
   const [enrollWhatsapp, setEnrollWhatsapp] = useState('');
+  const [siteTitle, setSiteTitle] = useState('');
+  const [siteLogoPreview, setSiteLogoPreview] = useState('');
+  const [siteLogoFile, setSiteLogoFile] = useState<File | null>(null);
+  const [contactNumber, setContactNumber] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactAddress, setContactAddress] = useState('');
 
   // Generic Form States for Add/Edit
   const [showModal, setShowModal] = useState(false);
@@ -60,7 +66,7 @@ export default function AdminDashboard() {
     setDebugMsg('Fetching ' + tab + '...');
     sendLog('Fetching ' + tab + '...');
     try {
-      const ep = tab === 'settings' ? null : `http://localhost/timeastro/api/admin/${tab}.php`;
+      const ep = tab === 'settings' ? null : `/api/admin/${tab}.php`;
       if (ep) {
         const res = await fetch(ep, { 
           headers: getHeaders(),
@@ -98,9 +104,12 @@ export default function AdminDashboard() {
       const data = await res.json();
       if (data.success && data.data) {
         setAutoApprove(data.data.auto_approve_users || '0');
-        if (data.data.enroll_whatsapp_number) {
-          setEnrollWhatsapp(data.data.enroll_whatsapp_number);
-        }
+        if (data.data.enroll_whatsapp_number) setEnrollWhatsapp(data.data.enroll_whatsapp_number);
+        if (data.data.site_title) setSiteTitle(data.data.site_title);
+        if (data.data.site_logo) setSiteLogoPreview(data.data.site_logo);
+        if (data.data.contact_number) setContactNumber(data.data.contact_number);
+        if (data.data.contact_email) setContactEmail(data.data.contact_email);
+        if (data.data.contact_address) setContactAddress(data.data.contact_address);
       }
     } catch (err) {}
   };
@@ -405,6 +414,58 @@ export default function AdminDashboard() {
               <h2 className="text-2xl font-bold mb-4">Site Preferences</h2>
               <div className="bg-white p-6 rounded-lg shadow space-y-6">
                 <div>
+                  <h3 className="text-lg font-medium mb-2 border-b pb-2">Site Title & Logo</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm text-gray-700">Site Title</label>
+                      <input 
+                        type="text" 
+                        value={siteTitle} 
+                        onChange={e => setSiteTitle(e.target.value)} 
+                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1">Site Logo</label>
+                      <div className="flex items-center gap-4">
+                        {siteLogoPreview && <img src={siteLogoPreview} alt="Logo Preview" className="w-12 h-12 rounded-full object-cover border" />}
+                        <input 
+                          type="file" 
+                          accept="image/*"
+                          onChange={e => {
+                            if (e.target.files && e.target.files[0]) {
+                              setSiteLogoFile(e.target.files[0]);
+                              setSiteLogoPreview(URL.createObjectURL(e.target.files[0]));
+                            }
+                          }}
+                          className="text-sm"
+                        />
+                      </div>
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        try {
+                          const formData = new FormData();
+                          formData.append('site_title', siteTitle);
+                          if (siteLogoFile) formData.append('site_logo', siteLogoFile);
+                          
+                          const res = await fetch('http://localhost/timeastro/api/admin/settings.php', {
+                            method: 'POST',
+                            headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` },
+                            body: formData
+                          });
+                          const data = await res.json();
+                          alert(data.message || 'Site Title & Logo Saved!');
+                        } catch (err) { alert('Error saving site settings'); }
+                      }}
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+                    >
+                      Save Branding
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t">
                   <h3 className="text-lg font-medium mb-2 border-b pb-2">Course Enrollment WhatsApp</h3>
                   <p className="text-sm text-gray-600 mb-3">When a user clicks "Enroll Now", they will be redirected to this WhatsApp number.</p>
                   <div className="flex gap-2">
@@ -427,9 +488,62 @@ export default function AdminDashboard() {
                           alert(data.message || 'WhatsApp Number Saved!');
                         } catch (err) { alert('Error saving WhatsApp number'); }
                       }}
-                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
                     >
                       Save Number
+                    </button>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t">
+                  <h3 className="text-lg font-medium mb-2 border-b pb-2">Contact Details</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm text-gray-700">Contact Number</label>
+                      <input 
+                        type="text" 
+                        value={contactNumber} 
+                        onChange={e => setContactNumber(e.target.value)} 
+                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700">Email Address</label>
+                      <input 
+                        type="email" 
+                        value={contactEmail} 
+                        onChange={e => setContactEmail(e.target.value)} 
+                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700">Physical Address</label>
+                      <textarea 
+                        value={contactAddress} 
+                        onChange={e => setContactAddress(e.target.value)} 
+                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                        rows={2}
+                      />
+                    </div>
+                    <button 
+                      onClick={async () => {
+                        try {
+                          const res = await fetch('http://localhost/timeastro/api/admin/settings.php', {
+                            method: 'POST',
+                            headers: { ...getHeaders(), 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ 
+                              contact_number: contactNumber,
+                              contact_email: contactEmail,
+                              contact_address: contactAddress
+                            })
+                          });
+                          const data = await res.json();
+                          alert(data.message || 'Contact Details Saved!');
+                        } catch (err) { alert('Error saving contact details'); }
+                      }}
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+                    >
+                      Save Contact Details
                     </button>
                   </div>
                 </div>
