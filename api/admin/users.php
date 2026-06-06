@@ -1,10 +1,14 @@
 <?php
 require_once __DIR__ . '/../config.php';
 setCorsHeaders();
+file_put_contents(__DIR__ . '/../../api_debug.txt', "API HIT. Method: " . $_SERVER['REQUEST_METHOD'] . ", Auth: " . ($_SERVER['HTTP_AUTHORIZATION'] ?? 'NONE') . "\n", FILE_APPEND);
+
 requireAdmin();
 
 $db     = getDB();
 $method = $_SERVER['REQUEST_METHOD'];
+
+file_put_contents(__DIR__ . '/../../api_debug.txt', "Requested API. Method: $method, Token: " . ($_SERVER['HTTP_AUTHORIZATION'] ?? 'NONE') . "\n", FILE_APPEND);
 
 if ($method === 'GET') {
     $status = $_GET['status'] ?? '';

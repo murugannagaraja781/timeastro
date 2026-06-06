@@ -9,6 +9,8 @@ export default function Courses() {
   const [loading, setLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const [whatsappNumber, setWhatsappNumber] = useState('');
+
   const fetchCourses = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -22,6 +24,14 @@ export default function Courses() {
       if (data.success) {
         setCourses(data.data);
       }
+      
+      // Fetch public settings for whatsapp number
+      const setRes = await fetch('http://localhost/timeastro/api/public/settings.php');
+      const setData = await setRes.json();
+      if (setData.success && setData.data.enroll_whatsapp_number) {
+        setWhatsappNumber(setData.data.enroll_whatsapp_number);
+      }
+
     } catch (err) {
       console.error('Failed to fetch courses', err);
     } finally {
@@ -33,7 +43,7 @@ export default function Courses() {
     fetchCourses();
   }, []);
 
-  const handleEnroll = async (courseId: number) => {
+  const handleEnroll = async (courseId: number, courseTitle: string) => {
     if (!isLoggedIn) {
       router.push('/login');
       return;
@@ -49,9 +59,19 @@ export default function Courses() {
         body: JSON.stringify({ course_id: courseId })
       });
       const data = await res.json();
-      alert(data.message);
+      
       if (data.success) {
         fetchCourses(); // refresh to show enrolled status
+        
+        // Redirect to WhatsApp
+        if (whatsappNumber) {
+          const msg = encodeURIComponent(`Hi, I would like to enroll in the astrology course: ${courseTitle}`);
+          window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+        } else {
+           alert('Enrollment successful, but WhatsApp number is not configured.');
+        }
+      } else {
+        alert(data.message);
       }
     } catch (err) {
       alert('Error enrolling in course');
@@ -119,7 +139,7 @@ export default function Courses() {
                           ✓ Enrolled
                         </button>
                       ) : (
-                        <button onClick={() => handleEnroll(course.id)} className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors">
+                        <button onClick={() => handleEnroll(course.id, course.title)} className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors">
                           {isLoggedIn ? 'Enroll Now' : 'Login to Enroll'}
                         </button>
                       )}

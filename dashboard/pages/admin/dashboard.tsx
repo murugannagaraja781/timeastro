@@ -14,9 +14,11 @@ export default function AdminDashboard() {
   const [offers, setOffers] = useState<any[]>([]);
   
   const [loading, setLoading] = useState(false);
+  const [debugMsg, setDebugMsg] = useState('');
 
-  // Settings State
   const [passwordForm, setPasswordForm] = useState({ old_password: '', new_password: '' });
+  const [autoApprove, setAutoApprove] = useState('0');
+  const [enrollWhatsapp, setEnrollWhatsapp] = useState('');
 
   // Generic Form States for Add/Edit
   const [showModal, setShowModal] = useState(false);
@@ -32,6 +34,7 @@ export default function AdminDashboard() {
     }
     setAdminUsername(localStorage.getItem('adminUsername') || 'Admin');
     fetchData(activeTab);
+    fetchSettings();
   }, [activeTab, router]);
 
   const handleLogout = () => {
@@ -45,25 +48,76 @@ export default function AdminDashboard() {
     'Accept': 'application/json'
   });
 
+  const sendLog = (msg: string) => {
+    fetch('http://localhost/timeastro/api/admin/log.php', {
+      method: 'POST',
+      body: JSON.stringify({ log: msg, time: new Date().toISOString() })
+    }).catch(() => {});
+  };
+
   const fetchData = async (tab: string) => {
     setLoading(true);
+    setDebugMsg('Fetching ' + tab + '...');
+    sendLog('Fetching ' + tab + '...');
     try {
       const ep = tab === 'settings' ? null : `http://localhost/timeastro/api/admin/${tab}.php`;
       if (ep) {
-        const res = await fetch(ep, { headers: getHeaders() });
+        const res = await fetch(ep, { 
+          headers: getHeaders(),
+          cache: 'no-store'
+        });
         const data = await res.json();
+        const msg = 'Fetched ' + tab + ' | Success: ' + data.success + ' | Data Length: ' + (data.data ? data.data.length : 0);
+        setDebugMsg(msg);
+        sendLog(msg);
         if (data.success) {
-          if (tab === 'users') setUsers(data.data);
+          if (tab === 'users') {
+             setUsers(data.data);
+             sendLog('setUsers called with ' + JSON.stringify(data.data));
+          }
           else if (tab === 'courses') setCourses(data.data);
           else if (tab === 'about') setAboutSections(data.data);
           else if (tab === 'offers') setOffers(data.data);
+        } else {
+          setDebugMsg('Error from API: ' + data.message);
+          sendLog('Error from API: ' + data.message);
         }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
+      setDebugMsg('Network/JS Error: ' + err.message);
+      sendLog('Network/JS Error: ' + err.message);
     } finally {
       setLoading(false);
     }
+  };
+
+  const fetchSettings = async () => {
+    try {
+      const res = await fetch('http://localhost/timeastro/api/admin/settings.php', { headers: getHeaders() });
+      const data = await res.json();
+      if (data.success && data.data) {
+        setAutoApprove(data.data.auto_approve_users || '0');
+        if (data.data.enroll_whatsapp_number) {
+          setEnrollWhatsapp(data.data.enroll_whatsapp_number);
+        }
+      }
+    } catch (err) {}
+  };
+
+  const handleToggleAutoApprove = async () => {
+    const newValue = autoApprove === '1' ? '0' : '1';
+    try {
+      const res = await fetch('http://localhost/timeastro/api/admin/settings.php', {
+        method: 'POST',
+        headers: { ...getHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({ auto_approve_users: newValue })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setAutoApprove(newValue);
+      } else alert('Failed to update setting');
+    } catch (err) { alert('Network error'); }
   };
 
   // --- Users ---
@@ -154,8 +208,8 @@ export default function AdminDashboard() {
         </div>
         <nav className="flex-1 p-4 space-y-2">
           {['users', 'courses', 'about', 'offers', 'settings'].map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)} className={`w-full text-left px-4 py-2 rounded capitalize ${activeTab === tab ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800'}`}>
-              {tab === 'about' ? 'About Page' : tab === 'offers' ? 'Offers/Softer Menu' : tab}
+            <button key={tab} onClick={() => { setActiveTab(tab); fetchData(tab); }} className={`w-full text-left px-4 py-2 rounded capitalize ${activeTab === tab ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800'}`}>
+              {tab === 'users' ? 'Waiting for Approval' : tab === 'about' ? 'About Page' : tab === 'offers' ? 'Offers/Softer Menu' : tab}
             </button>
           ))}
         </nav>
@@ -166,47 +220,82 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <div className="flex-1 p-8 text-black overflow-y-auto h-screen">
+        {debugMsg && (
+          <div className="bg-black text-green-400 p-2 mb-4 text-xs font-mono rounded shadow">
+            DEBUG: {debugMsg}
+          </div>
+        )}
         {loading && <p className="text-indigo-600 mb-4 font-bold">Loading...</p>}
         
         {/* Users Tab */}
         {activeTab === 'users' && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">User Approvals</h2>
-            <div className="bg-white shadow rounded-lg overflow-hidden">
-              <table className="min-w-full">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="py-3 px-4 text-left">Name</th>
-                    <th className="py-3 px-4 text-left">Email / Mobile</th>
-                    <th className="py-3 px-4 text-left">Status</th>
-                    <th className="py-3 px-4 text-center">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200">
-                  {users.map(user => (
-                    <tr key={user.id} className="hover:bg-gray-50">
-                      <td className="py-3 px-4">
-                        <div className="font-medium">{user.first_name} {user.last_name}</div>
-                        <div className="text-sm text-gray-500">@{user.username} | {user.plan.toUpperCase()} Plan</div>
-                      </td>
-                      <td className="py-3 px-4 text-sm text-gray-600">
-                        {user.email}<br/>{user.mobile}
-                      </td>
-                      <td className="py-3 px-4">
-                        <span className={`text-xs font-bold px-2 py-1 rounded ${user.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : user.status === 'approved' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{user.status}</span>
-                      </td>
-                      <td className="py-3 px-4 text-center">
-                        {user.status === 'pending' && (
-                          <div className="flex justify-center space-x-2">
-                            <button onClick={() => handleApproveRejectUser(user.id, 'approve')} className="bg-green-500 hover:bg-green-600 text-white text-xs px-3 py-1 rounded">Approve</button>
-                            <button onClick={() => handleApproveRejectUser(user.id, 'reject')} className="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded">Reject</button>
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold">User Approvals</h2>
+              <div className="flex items-center space-x-3 bg-white px-4 py-2 rounded-lg shadow border border-gray-100">
+                <span className="text-sm font-medium text-gray-700">Auto Approve New Signups:</span>
+                <button 
+                  onClick={handleToggleAutoApprove}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${autoApprove === '1' ? 'bg-green-500' : 'bg-gray-300'}`}
+                >
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${autoApprove === '1' ? 'translate-x-6' : 'translate-x-1'}`} />
+                </button>
+                <span className="text-xs text-gray-500 w-8">{autoApprove === '1' ? 'ON' : 'OFF'}</span>
+              </div>
+            </div>
+
+            <div className="mb-8">
+              {debugMsg && (
+                <div className="bg-black text-green-400 p-4 mb-4 font-mono text-lg font-bold border-4 border-red-500 shadow-xl">
+                  {debugMsg} <br/>
+                  Total Users State Count: {users ? users.length : 0}
+                </div>
+              )}
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="text-lg font-bold text-yellow-600">Waiting for Approval</h3>
+                <button onClick={() => fetchData('users')} className="text-sm bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded shadow-sm">
+                  Refresh List
+                </button>
+              </div>
+              
+              <div className="bg-white shadow rounded-lg p-6 border border-yellow-200">
+                {users && users.length > 0 ? (
+                  users.map(user => (
+                    user.status === 'pending' && (
+                      <div key={user.id} className="border-b pb-4 mb-4 flex justify-between items-center">
+                        <div>
+                          <p className="font-bold text-lg">{user.first_name} {user.last_name}</p>
+                          <p className="text-gray-600">{user.email} | {user.mobile}</p>
+                          <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Pending Approval</span>
+                        </div>
+                        <div className="space-x-2">
+                          <button onClick={() => handleApproveRejectUser(user.id, 'approve')} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Approve</button>
+                          <button onClick={() => handleApproveRejectUser(user.id, 'reject')} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Reject</button>
+                        </div>
+                      </div>
+                    )
+                  ))
+                ) : (
+                  <p className="text-gray-500">Loading users or no users found.</p>
+                )}
+                {users && users.filter(u => u.status === 'pending').length === 0 && users.length > 0 && (
+                  <p className="text-gray-500">No pending approvals found.</p>
+                )}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold mb-3 text-gray-700">All Users (Approved/Rejected)</h3>
+              <div className="bg-white shadow rounded-lg p-6">
+                {users && users.map(user => (
+                  user.status !== 'pending' && (
+                    <div key={user.id} className="border-b pb-4 mb-4">
+                      <p className="font-bold">{user.first_name} {user.last_name}</p>
+                      <p className="text-gray-600">{user.email} | Status: <strong className={user.status === 'approved' ? 'text-green-600' : 'text-red-600'}>{user.status}</strong></p>
+                    </div>
+                  )
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -293,21 +382,58 @@ export default function AdminDashboard() {
 
         {/* Settings Tab */}
         {activeTab === 'settings' && (
-          <div>
-            <h2 className="text-2xl font-bold mb-4">Settings</h2>
-            <div className="max-w-md bg-white p-6 rounded-lg shadow">
-              <h3 className="text-lg font-medium mb-4 border-b pb-2">Change Password</h3>
-              <form onSubmit={handleChangePassword} className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Security Settings</h2>
+              <div className="bg-white p-6 rounded-lg shadow">
+                <h3 className="text-lg font-medium mb-4 border-b pb-2">Change Password</h3>
+                <form onSubmit={handleChangePassword} className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-gray-700">Old Password</label>
+                    <input type="password" required value={passwordForm.old_password} onChange={e => setPasswordForm({...passwordForm, old_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-indigo-500" />
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-700">New Password</label>
+                    <input type="password" required value={passwordForm.new_password} onChange={e => setPasswordForm({...passwordForm, new_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-indigo-500" />
+                  </div>
+                  <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Update Password</button>
+                </form>
+              </div>
+            </div>
+
+            <div>
+              <h2 className="text-2xl font-bold mb-4">Site Preferences</h2>
+              <div className="bg-white p-6 rounded-lg shadow space-y-6">
                 <div>
-                  <label className="block text-sm text-gray-700">Old Password</label>
-                  <input type="password" required value={passwordForm.old_password} onChange={e => setPasswordForm({...passwordForm, old_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-indigo-500" />
+                  <h3 className="text-lg font-medium mb-2 border-b pb-2">Course Enrollment WhatsApp</h3>
+                  <p className="text-sm text-gray-600 mb-3">When a user clicks "Enroll Now", they will be redirected to this WhatsApp number.</p>
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      value={enrollWhatsapp} 
+                      onChange={e => setEnrollWhatsapp(e.target.value)} 
+                      placeholder="e.g. 919876543210" 
+                      className="flex-1 border p-2 rounded outline-none focus:border-indigo-500" 
+                    />
+                    <button 
+                      onClick={async () => {
+                        try {
+                          const res = await fetch('http://localhost/timeastro/api/admin/settings.php', {
+                            method: 'POST',
+                            headers: { ...getHeaders(), 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ enroll_whatsapp_number: enrollWhatsapp })
+                          });
+                          const data = await res.json();
+                          alert(data.message || 'WhatsApp Number Saved!');
+                        } catch (err) { alert('Error saving WhatsApp number'); }
+                      }}
+                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+                    >
+                      Save Number
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-sm text-gray-700">New Password</label>
-                  <input type="password" required value={passwordForm.new_password} onChange={e => setPasswordForm({...passwordForm, new_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-indigo-500" />
-                </div>
-                <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Update Password</button>
-              </form>
+              </div>
             </div>
           </div>
         )}

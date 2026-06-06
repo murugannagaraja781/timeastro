@@ -41,9 +41,17 @@ $token = bin2hex(random_bytes(32));
 // Hash password
 $hashed = password_hash($password, PASSWORD_BCRYPT);
 
-// Insert user
+// Check auto-approve setting
+$settingsStmt = $db->prepare('SELECT setting_value FROM settings WHERE setting_key = "auto_approve_users"');
+$settingsStmt->execute();
+$autoApproveResult = $settingsStmt->get_result();
+$isAutoApprove = false;
+if ($autoApproveResult->num_rows > 0) {
+    $isAutoApprove = $autoApproveResult->fetch_assoc()['setting_value'] === '1';
+}
+
+$status = $isAutoApprove ? 'approved' : 'pending';
 $stmt = $db->prepare('INSERT INTO users (first_name, last_name, username, email, mobile, password, plan, status, approve_token) VALUES (?,?,?,?,?,?,?,?,?)');
-$status = 'pending';
 $stmt->bind_param('sssssssss', $firstName, $lastName, $username, $email, $mobile, $hashed, $plan, $status, $token);
 if (!$stmt->execute()) {
     error('Registration failed. Please try again.');
@@ -67,8 +75,10 @@ $waMessage   = urlencode(
 
 $waLink = 'https://wa.me/' . ADMIN_WHATSAPP . '?text=' . $waMessage;
 
+$msg = $isAutoApprove ? 'Registration successful! You can now log in.' : 'Registration successful! Awaiting admin approval.';
+
 success([
     'user_id'    => $userId,
     'wa_link'    => $waLink,
     'approve_url' => $approveUrl,
-], 'Registration successful! Awaiting admin approval.', 201);
+], $msg, 201);

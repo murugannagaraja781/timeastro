@@ -1,4 +1,5 @@
 RewriteEngine On
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 # Exclude API routes
 RewriteCond %{REQUEST_URI} !^/api/
 # If the requested resource does not exist as a file or directory, serve it from the public folder

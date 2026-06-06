@@ -1,0 +1,66 @@
+{"log":"Fetching users...","time":"2026-06-06T18:07:55.477Z"}
+{"log":"Fetched users | Success: false | Data Length: 0","time":"2026-06-06T18:07:55.491Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:09:18.902Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:09:18.904Z"}
+{"log":"Fetched users | Success: false | Data Length: 0","time":"2026-06-06T18:09:18.922Z"}
+{"log":"Error from API: Unauthorized","time":"2026-06-06T18:09:18.922Z"}
+{"log":"Fetched users | Success: false | Data Length: 0","time":"2026-06-06T18:09:18.947Z"}
+{"log":"Error from API: Unauthorized","time":"2026-06-06T18:09:18.947Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:09:21.961Z"}
+{"log":"Error from API: Unauthorized","time":"2026-06-06T18:09:21.977Z"}
+6T18:09:21.976Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:09:22.681Z"}
+{"log":"Error from API: Unauthorized","time":"2026-06-06T18:09:22.691Z"}
+6T18:09:22.690Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:09:23.212Z"}
+{"log":"Fetched users | Success: false | Data Length: 0","time":"2026-06-06T18:09:23.223Z"}
+{"log":"Error from API: Unauthorized","time":"2026-06-06T18:09:23.224Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:10:36.369Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:10:36.381Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:10:36.403Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:10:36.404Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:10:36.434Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:10:36.434Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:10:58.387Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:10:58.401Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:10:58.401Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:11:00.690Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:11:00.704Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:11:00.704Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:11:03.136Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:11:03.147Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"pending\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:11:03.147Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:11:04.939Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:11:04.953Z"}
+{"log":"Fetching courses...","time":"2026-06-06T18:11:16.191Z"}
+{"log":"Fetching courses...","time":"2026-06-06T18:11:16.194Z"}
+{"log":"Fetched courses | Success: true | Data Length: 4","time":"2026-06-06T18:11:16.210Z"}
+{"log":"Fetched courses | Success: true | Data Length: 4","time":"2026-06-06T18:11:16.219Z"}
+{"log":"Fetching about...","time":"2026-06-06T18:11:26.208Z"}
+{"log":"Fetching about...","time":"2026-06-06T18:11:26.211Z"}
+{"log":"Fetched about | Success: true | Data Length: 4","time":"2026-06-06T18:11:26.256Z"}
+{"log":"Fetched about | Success: true | Data Length: 4","time":"2026-06-06T18:11:26.256Z"}
+{"log":"Fetching offers...","time":"2026-06-06T18:11:31.819Z"}
+{"log":"Fetching offers...","time":"2026-06-06T18:11:31.823Z"}
+{"log":"Fetched offers | Success: true | Data Length: 0","time":"2026-06-06T18:11:31.864Z"}
+{"log":"Fetched offers | Success: true | Data Length: 0","time":"2026-06-06T18:11:31.877Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:17:50.344Z"}
+{"log":"Fetching users...","time":"2026-06-06T18:17:50.347Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:17:50.386Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:17:50.387Z"}
+{"log":"setUsers called with [{\"id\":4,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test4\",\"email\":\"test4@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 23:05:21\"},{\"id\":3,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test3\",\"email\":\"test3@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:57:31\"},{\"id\":2,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test1\",\"email\":\"test1@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:26:01\"},{\"id\":1,\"first_name\":\"user\",\"last_name\":\"test\",\"username\":\"test\",\"email\":\"test@gmail.com\",\"mobile\":\"9876543210\",\"plan\":\"free\",\"status\":\"approved\",\"created_at\":\"2026-06-06 21:22:21\"}]","time":"2026-06-06T18:17:50.405Z"}
+{"log":"Fetched users | Success: true | Data Length: 4","time":"2026-06-06T18:17:50.404Z"}
+{"log":"Fetching courses...","time":"2026-06-06T18:17:51.528Z"}
+{"log":"Fetching courses...","time":"2026-06-06T18:17:51.532Z"}
+{"log":"Fetched courses | Success: true | Data Length: 4","time":"2026-06-06T18:17:51.551Z"}
+{"log":"Fetched courses | Success: true | Data Length: 4","time":"2026-06-06T18:17:51.554Z"}
+{"log":"Fetching about...","time":"2026-06-06T18:17:52.844Z"}
+{"log":"Fetching about...","time":"2026-06-06T18:17:52.847Z"}
+{"log":"Fetched about | Success: true | Data Length: 4","time":"2026-06-06T18:17:52.860Z"}
+{"log":"Fetched about | Success: true | Data Length: 4","time":"2026-06-06T18:17:52.866Z"}
+{"log":"Fetching settings...","time":"2026-06-06T18:17:53.442Z"}
+{"log":"Fetching settings...","time":"2026-06-06T18:17:53.444Z"}
+{"log":"Fetching offers...","time":"2026-06-06T18:17:53.982Z"}
+{"log":"Fetching offers...","time":"2026-06-06T18:17:53.984Z"}
+{"log":"Fetched offers | Success: true | Data Length: 3","time":"2026-06-06T18:17:54.001Z"}
+{"log":"Fetched offers | Success: true | Data Length: 3","time":"2026-06-06T18:17:54.015Z"}

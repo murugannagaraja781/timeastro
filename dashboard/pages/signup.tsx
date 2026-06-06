@@ -49,7 +49,7 @@ export default function Signup() {
       if (!data.success) {
         setError(data.message || 'Signup failed');
       } else {
-        setSuccess('Registration successful! Please wait for admin approval before logging in.');
+        setSuccess(data.message);
         // Clear form
         setFormData({
             firstName: '', lastName: '', username: '', email: '',

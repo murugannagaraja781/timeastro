@@ -64,8 +64,15 @@ function error(string $message, int $code = 400): void {
 // ============================================================
 function requireAdmin(): array {
     $token = $_SERVER['HTTP_AUTHORIZATION'] ?? '';
+    
+    // Fallback for Apache stripping Authorization header
+    if (empty($token) && function_exists('apache_request_headers')) {
+        $headers = apache_request_headers();
+        $token = $headers['Authorization'] ?? $headers['authorization'] ?? '';
+    }
+    
     $token = str_replace('Bearer ', '', trim($token));
-    if (empty($token)) error('Unauthorized', 401);
+    if (empty($token)) error('Unauthorized: No token provided', 401);
 
     $decoded = base64_decode($token);
     $parts   = explode(':', $decoded);
@@ -76,7 +83,7 @@ function requireAdmin(): array {
     $stmt->bind_param('s', $uname);
     $stmt->execute();
     $result = $stmt->get_result();
-    if ($result->num_rows === 0) error('Unauthorized', 401);
+    if ($result->num_rows === 0) error('Unauthorized: Invalid token', 401);
 
     return $result->fetch_assoc();
 }
