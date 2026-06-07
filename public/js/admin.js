@@ -10,11 +10,13 @@ function switchView(viewId) {
     document.getElementById('view-overview').style.display = 'none';
     document.getElementById('view-requests').style.display = 'none';
     document.getElementById('view-courses').style.display = 'none';
+    document.getElementById('view-users').style.display = 'none';
     
     // Deactivate all menu links
     document.getElementById('menu-overview').classList.remove('active');
     document.getElementById('menu-requests').classList.remove('active');
     document.getElementById('menu-courses').classList.remove('active');
+    document.getElementById('menu-users').classList.remove('active');
     
     // Show selected view
     document.getElementById(`view-${viewId}`).style.display = 'block';
@@ -22,6 +24,8 @@ function switchView(viewId) {
     
     if(viewId === 'courses') {
         renderCoursesTable();
+    } else if(viewId === 'users') {
+        renderUsersTable();
     } else {
         loadLiveDashboardData();
     }
@@ -276,4 +280,36 @@ function deleteCourse(id) {
         localStorage.setItem('guru_courses', JSON.stringify(courses));
         renderCoursesTable();
     }
+}
+
+function renderUsersTable() {
+    let requests = JSON.parse(localStorage.getItem('guru_user_requests')) || [];
+    const tbody = document.getElementById('users-body');
+    tbody.innerHTML = '';
+    
+    if (requests.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 30px;">No users registered yet.</td></tr>`;
+        return;
+    }
+    
+    requests.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+              <div class="user-cell">
+                <div class="avatar">${user.name ? user.name.charAt(0).toUpperCase() : 'U'}</div>
+                <span style="color: #fff; font-weight: 500;">${user.name || 'Anonymous'}</span>
+              </div>
+            </td>
+            <td>${user.email || '-'}</td>
+            <td>${user.phone || '-'}</td>
+            <td>${user.date || '-'}</td>
+            <td>
+              <span class="status-badge ${user.status === 'Approved' ? 'active' : 'pending'}" style="${user.status === 'Approved' ? 'box-shadow: 0 0 10px rgba(46,204,113,0.3);' : ''}">
+                ${user.status}
+              </span>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
 }

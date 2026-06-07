@@ -180,7 +180,7 @@ h1, h2, h3, h4, h5, h6, .brand-logo {
 }
 
 /* Hero Section */
-.hero {
+.hero { position: relative; overflow: hidden;
   min-height: 100vh;
   padding: calc(var(--nav-height) + 50px) 6% 50px;
   display: flex;
@@ -476,8 +476,8 @@ h1, h2, h3, h4, h5, h6, .brand-logo {
   margin: 0 auto;
 }
 
-@media (max-width: 1100px) {
-  .hero {
+@media (max-width: 768px) {
+  .hero { position: relative; overflow: hidden;
     flex-direction: column;
     text-align: center;
     padding-top: 150px;

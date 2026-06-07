@@ -22,7 +22,7 @@
     <ul class="nav-links">
       <li><a href="#" id="menu-overview" class="active" onclick="switchView('overview'); return false;"><i>📊</i> Dashboard</a></li>
       <li><a href="#" id="menu-requests" onclick="switchView('requests'); return false;"><i>📝</i> User Requests <span class="badge" id="req-badge" style="position: relative; top: -2px; left: 5px; display: none;">0</span></a></li>
-      <li><a href="#"><i>👥</i> Users</a></li>
+      <li><a href="#" id="menu-users" onclick="switchView('users'); return false;"><i>👥</i> Users</a></li>
       <li><a href="#" id="menu-courses" onclick="switchView('courses'); return false;"><i>📚</i> Courses</a></li>
       <li><a href="#"><i>✉️</i> Enquiries</a></li>
       <li><a href="#"><i>⚙️</i> Settings</a></li>
@@ -142,6 +142,34 @@
               </tr>
             </thead>
             <tbody id="user-requests-body">
+              <!-- Dynamically Populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW: REGISTERED USERS -->
+    <div class="dashboard-content" id="view-users" style="display: none;">
+      <h2 class="page-title">Registered Users</h2>
+      
+      <div class="recent-activity">
+        <div class="table-header">
+          <h3>User List</h3>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="premium-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Mobile Number</th>
+                <th>Date Registered</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="users-body">
               <!-- Dynamically Populated -->
             </tbody>
           </table>

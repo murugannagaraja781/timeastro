@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guru Acharya | Premium Astrologer</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/dynamic.css">
+  <link rel="stylesheet" href="css/style.css?v=4.0">
+  <link rel="stylesheet" href="css/dynamic.css?v=4.0">
   <!-- Load Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,7 +41,7 @@
   <!-- Premium Hero Section -->
   <section id="home" class="hero">
     <div class="hero-content">
-      <div class="badge">✨ Premium Vedic Astrology</div>
+      <div class="badge">? Premium Vedic Astrology</div>
       <h1 class="hero-title">Discover Your<br><span class="text-gradient">Divine Path</span></h1>
       <p class="hero-subtitle">Experience the profound wisdom of traditional Jyotish with unmatched accuracy. We illuminate your past, present, and future.</p>
       
@@ -68,21 +68,16 @@
         </div>
       </div>
     </div>
-    
-    <!-- Astrological Kadigaram (27 Nakshatras & Panchangam) -->
-    <div class="hero-visual">
-      <div class="kadigaram-wrapper" id="kadigaram">
-        <!-- 27 Nakshatras rendered by JS -->
-        <div class="kadigaram-wheel" id="nakshatra-wheel"></div>
-        
-        <!-- 12 Rasis (Inner Wheel) rendered by JS -->
-        <div class="kadigaram-inner-wheel" id="rasi-wheel"></div>
-        
-        <!-- Center Analog Clock Hands instead of Panchangam Text -->
-        <div class="my-hand-hour" style="animation-delay: -15000s;"></div>
-        <div class="my-hand-minute" style="animation-delay: -1200s;"></div>
-        <div class="my-hand-second"></div>
-        <div class="my-center-dot"></div>
+
+    <!-- Hero Right Widget: Gold Wall Clock -->
+    <div class="hero-clock-widget">
+      <div class="wall-clock">
+        <div class="wc-face" id="wc-face">
+          <div class="wc-hand wc-hour" id="wc-hour"></div>
+          <div class="wc-hand wc-minute" id="wc-minute"></div>
+          <div class="wc-hand wc-second" id="wc-second"></div>
+          <div class="wc-center"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -268,7 +263,59 @@
     <div class="audio-icon">🔊</div>
   </div>
 
-  <script src="js/data.js"></script>
+  <script src="js/data.js?v=5.0"></script>
   <script src="js/script.js"></script>
+  <!-- Hero Wall Clock Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const face = document.getElementById('wc-face');
+      if (face) {
+        // Add 12 Rasi names instead of markers
+        const rasiNames = ["மீனம்", "மேஷம்", "ரிஷபம்", "மிதுனம்", "கடகம்", "சிம்மம்", "கன்னி", "துலாம்", "விருச்சிகம்", "தனுசு", "மகரம்", "கும்பம்"];
+        const radius = 185; // Increased distance from center (scaled by 90%)
+        
+        for(let i = 0; i < 12; i++) {
+          const angleRad = (i * 30 - 90) * (Math.PI / 180);
+          
+          const textEl = document.createElement('div');
+          textEl.textContent = rasiNames[i];
+          textEl.style.position = 'absolute';
+          textEl.style.left = `calc(50% + ${radius * Math.cos(angleRad)}px)`;
+          textEl.style.top = `calc(50% + ${radius * Math.sin(angleRad)}px)`;
+          textEl.style.transform = 'translate(-50%, -50%)';
+          textEl.style.color = 'var(--gold)';
+          textEl.style.fontSize = '12px';
+          textEl.style.fontFamily = "'Noto Sans Tamil', sans-serif";
+          textEl.style.fontWeight = 'bold';
+          textEl.style.textShadow = '0 0 5px rgba(0,0,0,0.8)';
+          
+          face.appendChild(textEl);
+        }
+        
+        // Update clock hands
+        function updateWallClock() {
+          const now = new Date();
+          const hr = now.getHours() % 12;
+          const min = now.getMinutes();
+          const sec = now.getSeconds();
+          const ms = now.getMilliseconds();
+          
+          const hrDeg = (hr * 30) + (min * 0.5);
+          const minDeg = (min * 6) + (sec * 0.1);
+          const secDeg = (sec * 6) + (ms * 0.006);
+          
+          document.getElementById('wc-hour').style.transform = `rotate(${hrDeg}deg)`;
+          document.getElementById('wc-minute').style.transform = `rotate(${minDeg}deg)`;
+          document.getElementById('wc-second').style.transform = `rotate(${secDeg}deg)`;
+          
+          requestAnimationFrame(updateWallClock);
+        }
+        updateWallClock();
+      }
+    });
+  </script>
 </body>
 </html>
+
+
+

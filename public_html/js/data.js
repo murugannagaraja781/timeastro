@@ -274,7 +274,11 @@ function renderCourses() {
             <h3 class="card-title">${course.title}</h3>
             <p class="card-desc">${course.description}</p>
             <div class="card-meta">
-                <button class="btn-enroll" onclick="openEnrollModal('${course.title}')">Enroll Now</button>
+                <span class="card-duration">${course.duration}</span>
+                <span class="card-price">${course.price}</span>
+            </div>
+            <div style="margin-top: 15px; width: 100%;">
+                <button class="btn-enroll" onclick="openEnrollModal('${course.title.replace(/'/g, "\\'")}')">Enroll Now</button>
             </div>
         </div>
     `).join('');

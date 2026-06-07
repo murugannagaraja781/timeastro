@@ -178,21 +178,36 @@ function renderKadigaram() {
     // Render 12 Rasis in the inner circle
     let rasiHtml = '';
     const rasiStep = 360 / 12;
+
     websiteData.rasis.forEach((rasi, index) => {
         const rotation = index * rasiStep;
-        // Adjusting text rotation to be upright or outward pointing
         rasiHtml += `
             <div class="rasi-segment" style="transform: translateX(-50%) rotate(${rotation}deg);">
                 <div class="rasi-content">
-                    <span class="rasi-text">${rasi.name}</span>
+                    <span class="rasi-text" id="rasi-text-${index}">${rasi.name}</span>
                 </div>
             </div>
         `;
     });
+    
     rasiWheel.innerHTML = rasiHtml;
 
-    // Insert ONLY the rasi wheel container (Planetary hands removed as requested)
-    rasiWheel.innerHTML = rasiHtml;
+    // Render 27 Nakshatras Grid (Middle Panel)
+    const nakGrid = document.getElementById('nakshatra-list-container');
+    if (nakGrid) {
+        let gridHtml = '';
+        websiteData.nakshatras.forEach((nak, index) => {
+            // Highlight Avittam (index 22 is 23rd star) as active for the preview
+            const isActive = nak === "அவிட்டம்" ? "active" : "";
+            gridHtml += `
+                <div class="nak-item ${isActive}">
+                    <span class="nak-num">${index + 1}</span>
+                    <span>${nak}</span>
+                </div>
+            `;
+        });
+        nakGrid.innerHTML = gridHtml;
+    }
 }
 
 function renderAbout() {
@@ -281,6 +296,10 @@ function renderCourses() {
             <h3 class="card-title">${course.title}</h3>
             <p class="card-desc">${course.description}</p>
             <div class="card-meta">
+                <span class="card-duration">${course.duration}</span>
+                <span class="card-price">${course.price}</span>
+            </div>
+            <div style="margin-top: 15px; width: 100%;">
                 <button class="btn-enroll" onclick="openEnrollModal('${course.title.replace(/'/g, "\\'")}')">Enroll Now</button>
             </div>
         </div>
@@ -465,6 +484,56 @@ document.addEventListener('DOMContentLoaded', () => {
             repeat: -1,
             ease: "none"
         });
+
+        // Dynamic Rasi Highlight Tracker
+        const hourHand = document.querySelector(".my-hand-hour");
+        const rasiWheelEl = document.querySelector(".kadigaram-inner-wheel");
+        
+        if (hourHand && rasiWheelEl) {
+            gsap.ticker.add(() => {
+                // Get current rotations using GSAP's property getter
+                let handRot = gsap.getProperty(hourHand, "rotation") % 360;
+                let wheelRot = gsap.getProperty(rasiWheelEl, "rotation") % 360;
+                
+                // Normalize negative rotations
+                if (handRot < 0) handRot += 360;
+                if (wheelRot < 0) wheelRot += 360;
+                
+                // Calculate relative angle of hand pointing to the wheel
+                // Since wheel rotates counter-clockwise (-360), its zero point moves.
+                // The relative angle is Hand_Rotation - Wheel_Rotation
+                let relativeAngle = (handRot - wheelRot) % 360;
+                if (relativeAngle < 0) relativeAngle += 360;
+                
+                // Each Rasi is 30 degrees. 
+                // Since segment 0 starts at 0 deg, the index is simple math.
+                let activeIndex = Math.floor(relativeAngle / 30);
+                
+                // Remove active class from all
+                for(let i=0; i<12; i++) {
+                    const el = document.getElementById(`rasi-text-${i}`);
+                    if(el) {
+                        el.style.color = '#ccc';
+                        el.style.fontWeight = 'normal';
+                        el.style.textShadow = 'none';
+                    }
+                }
+                
+                // Highlight active Rasi
+                const activeEl = document.getElementById(`rasi-text-${activeIndex}`);
+                if(activeEl) {
+                    activeEl.style.color = 'var(--gold)';
+                    activeEl.style.fontWeight = 'bold';
+                    activeEl.style.textShadow = '0 0 10px var(--gold)';
+                    
+                    // Update the text in the middle panel
+                    const rasiLabel = document.getElementById('current-rasi-label');
+                    if(rasiLabel && websiteData.rasis[activeIndex]) {
+                        rasiLabel.innerText = `இப்போது: ${websiteData.rasis[activeIndex].name}`;
+                    }
+                }
+            });
+        }
 
         // Grahas (Planets) Orbit
         const grahas = document.querySelectorAll('.graha-hand');
