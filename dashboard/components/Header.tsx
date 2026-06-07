@@ -21,24 +21,24 @@ const Header = memo(function Header() {
 
   const getLinkClass = (path: string) => {
     return router.pathname === path 
-      ? "text-orange-700 font-extrabold transition-hover" 
-      : "text-black hover:text-orange-700 font-semibold transition-hover";
+      ? "text-gold font-bold transition-hover" 
+      : "text-gray-300 hover:text-pureWhite transition-hover";
   };
 
   return (
-    <header className="sticky top-0 left-0 right-0 h-[70px] flex items-center justify-between px-4 md:px-8 bg-gradient-to-r from-yellow-300 via-orange-300 to-yellow-400 text-black z-50 shadow-md border-b border-orange-400">
-      <Link href="/" className="flex items-center gap-3">
-        <img src={siteLogo} alt="logo" className="w-10 h-10 rounded-full object-cover" />
-        <span className="font-bold text-xl">{siteTitle}</span>
+    <header className="sticky top-0 left-0 right-0 h-[70px] flex items-center justify-between px-4 md:px-8 bg-darkNavy z-50 border-b border-[rgba(212,175,55,0.2)] premium-shadow">
+      <Link href="/" className="flex items-center gap-3 group">
+        <img src={siteLogo} alt="logo" className="w-10 h-10 rounded-full object-cover border border-gold" />
+        <span className="font-bold text-xl text-gold group-hover:text-pureWhite transition-hover uppercase tracking-widest">{siteTitle}</span>
       </Link>
-      <nav className="hidden md:flex gap-6 text-base font-medium items-center">
+      <nav className="hidden md:flex gap-6 text-[15px] items-center">
         <Link href="/" className={getLinkClass('/')}>Home</Link>
-        <Link href="/about" className={getLinkClass('/about')}>About Us</Link>
+        <Link href="/about" className={getLinkClass('/about')}>About</Link>
         <Link href="/courses" className={getLinkClass('/courses')}>Courses</Link>
         <Link href="/software" className={getLinkClass('/software')}>Software</Link>
-        <Link href="/contact" className={getLinkClass('/contact')}>Contact Us</Link>
-        <Link href="/login" className="bg-orange-600 hover:bg-orange-700 text-white font-bold px-4 py-2 rounded-md transition-colors ml-2 shadow">
-          Application Login
+        <Link href="/contact" className={getLinkClass('/contact')}>Contact</Link>
+        <Link href="/login" className="bg-gold hover:bg-yellow-500 text-darkNavy font-bold px-5 py-2 rounded-full transition-all duration-300 ml-4 shadow-lg hover:shadow-[0_0_15px_rgba(212,175,55,0.6)]">
+          Login
         </Link>
       </nav>
     </header>

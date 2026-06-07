@@ -8,10 +8,9 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primaryYellow: "#F4E600",
-        glassBg: "rgba(10,15,35,0.75)",
-        glassBorder: "rgba(255,255,255,0.08)",
-        accentBlue: "#4A90FF",
+        darkNavy: "#0F172A",
+        gold: "#D4AF37",
+        pureWhite: "#FFFFFF",
       },
       backdropBlur: {
         xs: "20px",

@@ -1,0 +1,729 @@
+/* Add this to the end of style.css */
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Below the kadigaram, above background */
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+/* Premium Enroll Button */
+.btn-enroll {
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 20px rgba(184, 134, 11, 0.3);
+  width: 100%;
+}
+
+.btn-enroll:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(184, 134, 11, 0.5);
+  background: linear-gradient(135deg, #ffd700, #d4af37);
+}
+
+/* Enroll Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: radial-gradient(circle at top left, #ffffff 0%, #fefcf5 50%, #fdf4df 100%);
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  border-radius: 20px;
+  padding: 35px;
+  width: 90%;
+  position: relative;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2), inset 0 0 0 1px rgba(255,255,255,0.8);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  color: var(--gold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  color: #8b6508;
+  transform: scale(1.1);
+}
+
+/* Floating Audio Toggle */
+.audio-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #d4af37, #b8860b);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(184, 134, 11, 0.4);
+  z-index: 1000;
+  transition: all 0.4s ease;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.audio-toggle:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 15px 35px rgba(184, 134, 11, 0.6);
+}
+
+.audio-toggle.muted {
+  background: linear-gradient(135deg, #555, #333);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive Contact Layout */
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 15px;
+}
+
+.contact-card-padding {
+  padding: 35px;
+}
+
+.contact-input {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(212,175,55,0.4);
+  background: rgba(255,255,255,0.8);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 5px rgba(184,134,11,0.03);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.contact-input:focus {
+  border-color: var(--gold);
+  background: #fff;
+  box-shadow: 0 0 10px rgba(212,175,55,0.2), inset 0 2px 5px rgba(184,134,11,0.03);
+}
+
+.contact-icon-wrapper {
+  width: 45px; 
+  height: 45px; 
+  border-radius: 50%; 
+  background: linear-gradient(135deg, #ffffff, #fdfbf7); 
+  border: 1px solid var(--gold); 
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2); 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  color: var(--gold); 
+  font-size: 18px; 
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .contact-card-padding {
+    padding: 20px;
+  }
+  .contact-grid {
+    gap: 20px;
+  }
+}
+
+/* Cards Grids */
+.courses-grid, .software-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Premium Card Style - Ultra Luxury */
+.premium-card {
+  background: linear-gradient(160deg, #ffffff 0%, #fefcf5 50%, #fdf4df 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 
+    0 15px 35px rgba(184, 134, 11, 0.08),
+    0 5px 15px rgba(184, 134, 11, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 40px rgba(255, 255, 255, 0.6);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  transform: skewX(-25deg);
+  transition: all 0.7s ease;
+  z-index: 1;
+}
+
+@keyframes goldShimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.premium-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(212, 175, 55, 0.8);
+  box-shadow: 
+    0 30px 60px rgba(184, 134, 11, 0.15),
+    0 10px 25px rgba(184, 134, 11, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.9),
+    inset 0 20px 40px rgba(255, 255, 255, 0.8);
+}
+
+.premium-card:hover::before {
+  left: 200%;
+  transition: all 0.7s ease;
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 200px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 25px;
+  box-shadow: 0 10px 20px rgba(184, 134, 11, 0.15);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  position: relative;
+}
+
+.course-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.premium-card:hover .course-img {
+  transform: scale(1.1);
+}
+
+.card-icon {
+  font-size: 45px;
+  margin-bottom: 25px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ffffff, #fdfbf7);
+  border-radius: 50%;
+  border: 2px solid var(--gold);
+  color: #b8860b;
+  box-shadow: 
+    0 10px 20px rgba(212, 175, 55, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 1);
+  transition: transform 0.4s ease;
+}
+
+.premium-card:hover .card-icon {
+  transform: rotateY(180deg) scale(1.1);
+  color: #d4af37;
+  background: var(--bg-main);
+}
+
+.card-title {
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  margin-bottom: 15px;
+}
+
+.card-desc {
+  color: var(--text-muted);
+  margin-bottom: 25px;
+  flex-grow: 1;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(0,0,0,0.05);
+  padding-top: 20px;
+  font-weight: 600;
+}
+
+.card-price {
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+}
+
+.card-duration {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* About Content */
+.about-content {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-text {
+  flex: 1;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+}
+
+.about-highlight {
+  font-size: 1.3rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* Contact Info */
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.contact-item {
+  margin: 15px 0;
+  font-size: 1.2rem;
+}
+
+.contact-label {
+  font-weight: 800;
+  color: var(--primary);
+  margin-right: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.contact-value {
+  color: var(--text-dark);
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    flex-direction: column;
+  }
+}
+
+/* ------------------------------------------- */
+/* Kadigaram (Astrological Clock) CSS          */
+/* ------------------------------------------- */
+
+.kadigaram-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kadigaram-wheel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid rgba(243, 156, 18, 0.4);
+  box-shadow: 
+    0 0 60px rgba(255, 193, 7, 0.3),
+    inset 0 0 40px rgba(241, 196, 15, 0.2);
+  background: url('../assets/images/mandala.png') no-repeat center center;
+  background-size: cover;
+  backdrop-filter: blur(5px);
+}
+
+.nakshatra-segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 50%;
+  transform-origin: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nakshatra-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--primary-dark);
+  text-transform: uppercase;
+  margin-top: 20px;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  text-shadow: 0 0 5px #fff;
+}
+
+.nakshatra-tick {
+  width: 4px;
+  height: 10px;
+  background: var(--gold);
+  border-radius: 2px;
+  margin-top: 5px;
+}
+
+.panchangam-card {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 450px;
+  margin-top: 50px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 251, 247, 0.95) 100%);
+  box-shadow: 
+    0 20px 50px rgba(212, 175, 55, 0.15),
+    inset 0 0 0 1px rgba(255, 255, 255, 1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  padding: 40px;
+  transition: all 0.4s ease;
+}
+
+.panchangam-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 60px rgba(212, 175, 55, 0.25);
+  border-color: rgba(212, 175, 55, 0.6);
+}
+
+.my-hand-hour { position: absolute; top: 50%; left: 50%; width: 14px; height: 100px; margin-left: -7px; background: linear-gradient(to right, #8b6508 0%, #ffd700 50%, #8b6508 100%); transform-origin: top center; z-index: 5; clip-path: polygon(50% 100%, 100% 10%, 50% 0, 0 10%); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+.my-hand-minute { position: absolute; top: 50%; left: 50%; width: 10px; height: 140px; margin-left: -5px; background: linear-gradient(to right, #b8860b 0%, #f9d976 50%, #b8860b 100%); transform-origin: top center; z-index: 6; clip-path: polygon(50% 100%, 100% 8%, 50% 0, 0 8%); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+.my-hand-second { position: absolute; top: 50%; left: 50%; width: 4px; height: 170px; margin-left: -2px; background: linear-gradient(to right, #cc0000 0%, #ff4d4d 50%, #cc0000 100%); transform-origin: 2px 20px; margin-top: -20px; z-index: 7; border-radius: 2px; box-shadow: 0 0 10px rgba(255,0,0,0.6); }
+.my-center-dot { position: absolute; top: 50%; left: 50%; width: 24px; height: 24px; margin-top: -12px; margin-left: -12px; background: radial-gradient(circle at 30% 30%, #fff, #d4af37, #8b6508); border-radius: 50%; z-index: 11; box-shadow: 0 5px 15px rgba(0,0,0,0.6); border: 2px solid #ffdf00; }
+
+/* Auth Modal Styles */
+.auth-modal-content {
+  max-width: 450px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.auth-tabs {
+  display: flex;
+  margin-bottom: 30px;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+}
+
+.auth-tab {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.auth-tab.active {
+  color: var(--gold);
+  font-weight: bold;
+}
+
+.auth-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 10px var(--gold);
+}
+
+.auth-form {
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile App-Like UI */
+.mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Hide Top Nav Links and Login Button */
+  .nav-links, .login-btn {
+    display: none !important;
+  }
+  
+  /* Optimize Top Navbar padding */
+  .navbar {
+    padding: 0 20px !important;
+    justify-content: center;
+  }
+
+  /* Show Bottom App Dock */
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 5px 15px 5px; /* Extra padding at bottom for safe area */
+    z-index: 1000;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: all 0.3s ease;
+    width: 25%;
+  }
+
+  .nav-item .nav-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+  }
+
+  .nav-item span {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+  }
+
+  .nav-item.active, .nav-item:hover {
+    color: var(--gold);
+  }
+
+  .nav-item.active .nav-icon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 5px var(--gold));
+  }
+
+  /* Adjust body padding so content isn't hidden behind bottom nav */
+  body {
+    padding-bottom: 70px;
+  }
+
+  /* Adjust Mobile Section Paddings for App Look */
+  .hero {
+    padding-top: 100px;
+    padding-bottom: 40px;
+  }
+  
+  .content-section {
+    padding: 40px 15px;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+.pan-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: 15px;
+  border-bottom: 2px solid rgba(243, 156, 18, 0.3);
+  padding-bottom: 5px;
+}
+
+.pan-item {
+  margin: 5px 0;
+  font-size: 1.1rem;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.pan-label {
+  font-weight: 800;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.pan-value {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.clock-hand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 45%;
+  background: linear-gradient(to top, transparent, var(--primary-dark));
+  transform-origin: bottom center;
+  border-radius: 4px;
+  z-index: 5;
+  box-shadow: 0 0 15px var(--primary-dark);
+}
+
+.kadigaram-inner-wheel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  height: 75%;
+  border-radius: 50%;
+  border: 1px dashed rgba(241, 196, 15, 0.5);
+  background: rgba(243, 156, 18, 0.05);
+}
+
+.rasi-segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 50%;
+  transform-origin: top center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rasi-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+  transform: rotate(180deg);
+}
+
+.rasi-icon {
+  font-size: 20px;
+  color: var(--primary);
+  text-shadow: 0 0 10px rgba(243, 156, 18, 0.6);
+}
+
+.rasi-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.graha-hand {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 50%;
+  transform-origin: top center;
+  z-index: 20;
+}
+
+.graha-icon {
+  position: absolute;
+  top: 10%;
+  left: -15px;
+  width: 30px;
+  height: 30px;
+  background: var(--bg-main);
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  box-shadow: 0 0 15px rgba(255, 126, 0, 0.4);
+  color: var(--primary-dark);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .kadigaram-wrapper {
+    width: 350px;
+    height: 350px;
+  }
+  .panchangam-dashboard {
+    width: 220px;
+    height: 220px;
+  }
+  .pan-title {
+    font-size: 1.1rem;
+  }
+  .pan-item {
+    font-size: 0.9rem;
+  }
+  .nakshatra-text {
+    font-size: 8px;
+    margin-top: 10px;
+  }
+}

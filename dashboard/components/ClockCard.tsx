@@ -8,50 +8,29 @@ const ZODIAC_TAMIL = [
 ];
 
 const ZODIAC_SYMBOLS = [
-  "♈", "♉", "♊", "♋", "♌", "♍",
-  "♎", "♏", "♐", "♑", "♒", "♓",
+  "🐏", "🐂", "🧑‍🤝‍🧑", "🦀", "🦁", "💃",
+  "⚖️", "🦂", "🏹", "🐊", "🏺", "🐟",
 ];
 
-// Each zodiac corresponds roughly to a 2-hour window
 function getCurrentZodiac(hour: number) {
-  // Rasi based on current hour (0-23) -> index 0-11
   return Math.floor(hour / 2) % 12;
 }
 
 const ClockCard = memo(function ClockCard() {
-  // Initialize as null to avoid SSR/client hydration mismatch
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    // Set immediately on mount (client-only)
     setNow(new Date());
     const id = setInterval(() => setNow(new Date()), 1000);
     return () => clearInterval(id);
   }, []);
 
-  // Render a stable placeholder until client has hydrated
   if (!now) {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-        <h2 style={{
-          fontFamily: "'Noto Sans Tamil', 'Latha', sans-serif",
-          fontSize: '1.4rem',
-          color: '#fcd34d',
-          marginBottom: '12px',
-        }}>ஜோதிடக் கடிகாரம்</h2>
-        <div style={{
-          width: 420,
-          height: 420,
-          borderRadius: '50%',
-          background: 'radial-gradient(ellipse at 40% 40%, #fef08a, #f59e0b)',
-          border: '3px solid #d97706',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          color: '#fbbf24',
-          fontSize: '0.9rem',
-        }}>
-          நேரம் ஏற்றுகிறது...
+      <div className="flex flex-col items-center w-full p-8 bg-darkNavy premium-radius premium-shadow border border-[rgba(212,175,55,0.2)]">
+        <h2 className="font-tamil text-2xl text-gold mb-6 tracking-wide">ஜோதிட சக்கரம்</h2>
+        <div className="w-[300px] h-[300px] rounded-full border border-[rgba(212,175,55,0.5)] flex items-center justify-center text-gold">
+          ஏற்றுகிறது...
         </div>
       </div>
     );
@@ -60,31 +39,26 @@ const ClockCard = memo(function ClockCard() {
   const h = now.getHours();
   const m = now.getMinutes();
   const s = now.getSeconds();
-
-  // Angles in degrees from 12 o'clock position
-  const secDeg  = s * 6;
-  const minDeg  = m * 6 + s * 0.1;
-  const hourDeg = (h % 12) * 30 + m * 0.5;
-
   const activeZodiac = getCurrentZodiac(h);
 
-  const timeStr = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  const timeStr = `${h % 12 || 12}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`;
   const dateStr = now.toLocaleDateString('ta-IN', {
-    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
-    timeZone: 'Asia/Kolkata'
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
   });
 
   const cx = 200;
   const cy = 200;
-  const R  = 190; // outer radius
+  const R  = 180; 
 
-  // Helper: polar to cartesian
+  const secDeg  = s * 6;
+  const minDeg  = m * 6 + s * 0.1;
+  const hourDeg = (h % 12) * 30 + m * 0.5;
+
   const polar = (angleDeg: number, r: number) => {
     const rad = ((angleDeg - 90) * Math.PI) / 180;
     return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
   };
 
-  // Hand path from center
   const handPath = (angleDeg: number, length: number, _backLen = 10) => {
     const tip  = polar(angleDeg, length);
     const back = polar(angleDeg + 180, _backLen);
@@ -92,238 +66,125 @@ const ClockCard = memo(function ClockCard() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
-      {/* Title */}
-      <h2 style={{
-        fontFamily: "'Noto Sans Tamil', 'Latha', sans-serif",
-        fontSize: '1.4rem',
-        color: '#fcd34d',
-        marginBottom: '12px',
-        textShadow: '0 0 20px rgba(252,211,77,0.6)',
-        letterSpacing: '0.05em'
-      }}>
-        ஜோதிடக் கடிகாரம்
+    <div className="flex flex-col items-center w-full p-6 md:p-8 bg-darkNavy premium-radius premium-shadow border border-[rgba(212,175,55,0.2)] relative overflow-hidden">
+      {/* Subtle Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gold opacity-5 blur-[100px] rounded-full pointer-events-none"></div>
+
+      <h2 className="font-tamil text-2xl text-gold mb-8 tracking-wider uppercase font-bold gold-text-glow z-10">
+        ஜோதிட சக்கரம்
       </h2>
 
-      {/* SVG Clock */}
-      <svg
-        viewBox="0 0 400 400"
-        width="100%"
-        style={{ maxWidth: 420, display: 'block' }}
-      >
-        <defs>
-          <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stopColor="#fef08a" />
-            <stop offset="100%" stopColor="#f59e0b" />
-          </radialGradient>
-          <radialGradient id="innerGrad" cx="50%" cy="40%" r="70%">
-            <stop offset="0%" stopColor="#fef08a" />
-            <stop offset="100%" stopColor="#f59e0b" />
-          </radialGradient>
-          <filter id="glow">
-            <feGaussianBlur stdDeviation="3" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-          <filter id="strongGlow">
-            <feGaussianBlur stdDeviation="5" result="blur" />
-            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-        </defs>
+      {/* Rotating Outer Wheel Container */}
+      <div className="relative w-full max-w-[400px] aspect-square flex items-center justify-center">
+        
+        {/* The rotating SVG ring */}
+        <div className="absolute inset-0 animate-spin-slow">
+          <svg viewBox="0 0 400 400" className="w-full h-full drop-shadow-[0_0_15px_rgba(212,175,55,0.4)]">
+            <defs>
+              <radialGradient id="goldGrad" cx="50%" cy="50%" r="50%">
+                <stop offset="70%" stopColor="#D4AF37" stopOpacity="0" />
+                <stop offset="95%" stopColor="#D4AF37" stopOpacity="0.2" />
+                <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.8" />
+              </radialGradient>
+            </defs>
 
-        {/* Outer ring background */}
-        <circle cx={cx} cy={cy} r={R} fill="url(#bgGrad)" stroke="#d97706" strokeWidth="3" />
+            {/* Thick Outer Ring */}
+            <circle cx={cx} cy={cy} r={R} fill="none" stroke="url(#goldGrad)" strokeWidth="15" />
+            <circle cx={cx} cy={cy} r={R + 8} fill="none" stroke="#D4AF37" strokeWidth="1" opacity="0.5" />
+            <circle cx={cx} cy={cy} r={R - 8} fill="none" stroke="#D4AF37" strokeWidth="1" opacity="0.3" />
 
-        {/* Decorative outer ring */}
-        <circle cx={cx} cy={cy} r={R - 2} fill="none" stroke="#fbbf24" strokeWidth="1" opacity="0.4" />
-        <circle cx={cx} cy={cy} r={R - 8} fill="none" stroke="orange" strokeWidth="0.5" opacity="0.3" />
+            {/* Zodiac Sections */}
+            {ZODIAC_TAMIL.map((_, i) => {
+              const startAngle = i * 30 - 90;
+              const endAngle   = (i + 1) * 30 - 90;
+              const s1 = polar(startAngle + 90, R - 8);
+              const e1 = polar(endAngle + 90, R - 8);
+              const s2 = polar(startAngle + 90, R - 40);
+              const e2 = polar(endAngle + 90, R - 40);
+              const isActive = i === activeZodiac;
 
-        {/* Zodiac segment arcs (12 segments) */}
-        {ZODIAC_TAMIL.map((_, i) => {
-          const startAngle = i * 30 - 90;
-          const endAngle   = (i + 1) * 30 - 90;
-          const r1 = R - 10;
-          const r2 = R - 48;
-          const s1 = polar(startAngle + 90, r1);
-          const e1 = polar(endAngle + 90, r1);
-          const s2 = polar(startAngle + 90, r2);
-          const e2 = polar(endAngle + 90, r2);
-          const isActive = i === activeZodiac;
-          return (
-            <path
-              key={i}
-              d={`M ${s1.x} ${s1.y} A ${r1} ${r1} 0 0 1 ${e1.x} ${e1.y} L ${e2.x} ${e2.y} A ${r2} ${r2} 0 0 0 ${s2.x} ${s2.y} Z`}
-              fill={isActive ? 'rgba(250,204,21,0.18)' : 'rgba(109,40,217,0.07)'}
-              stroke={isActive ? '#fbbf24' : '#d97706'}
-              strokeWidth={isActive ? 1.5 : 0.5}
-            />
-          );
-        })}
+              return (
+                <path
+                  key={i}
+                  d={`M ${s1.x} ${s1.y} A ${R-8} ${R-8} 0 0 1 ${e1.x} ${e1.y} L ${e2.x} ${e2.y} A ${R-40} ${R-40} 0 0 0 ${s2.x} ${s2.y} Z`}
+                  fill={isActive ? 'rgba(212,175,55,0.15)' : 'transparent'}
+                  stroke="#D4AF37"
+                  strokeWidth="0.5"
+                  strokeOpacity="0.5"
+                />
+              );
+            })}
 
-        {/* Zodiac tick lines */}
-        {Array.from({ length: 12 }).map((_, i) => {
-          const a = i * 30;
-          const p1 = polar(a, R - 10);
-          const p2 = polar(a, R - 20);
-          return (
-            <line key={i} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y}
-              stroke="#fbbf24" strokeWidth="2" />
-          );
-        })}
-
-        {/* Minor tick marks (60) */}
-        {Array.from({ length: 60 }).map((_, i) => {
-          if (i % 5 === 0) return null;
-          const a = i * 6;
-          const p1 = polar(a, R - 10);
-          const p2 = polar(a, R - 16);
-          return (
-            <line key={i} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y}
-              stroke="#b45309" strokeWidth="1" opacity="0.6" />
-          );
-        })}
-
-        {/* Zodiac Tamil labels */}
-        {ZODIAC_TAMIL.map((label, i) => {
-          const midAngle = i * 30 + 15;
-          const pos = polar(midAngle, R - 30);
-          const isActive = i === activeZodiac;
-          return (
-            <text
-              key={i}
-              x={pos.x} y={pos.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize="10"
-              fill={isActive ? '#fcd34d' : '#fde047'}
-              fontFamily="'Noto Sans Tamil', 'Latha', sans-serif"
-              filter={isActive ? 'url(#glow)' : undefined}
-              style={{ fontWeight: isActive ? 'bold' : 'normal' }}
-            >
-              {label}
-            </text>
-          );
-        })}
-
-        {/* Zodiac symbols (inner ring) */}
-        {ZODIAC_SYMBOLS.map((sym, i) => {
-          const midAngle = i * 30 + 15;
-          const pos = polar(midAngle, R - 58);
-          const isActive = i === activeZodiac;
-          return (
-            <text
-              key={i}
-              x={pos.x} y={pos.y}
-              textAnchor="middle"
-              dominantBaseline="middle"
-              fontSize="13"
-              fill={isActive ? '#fbbf24' : '#fbbf24'}
-              filter={isActive ? 'url(#strongGlow)' : undefined}
-            >
-              {sym}
-            </text>
-          );
-        })}
-
-        {/* Inner decorative circles */}
-        <circle cx={cx} cy={cy} r={R - 75} fill="url(#innerGrad)" stroke="orange" strokeWidth="1.5" />
-        <circle cx={cx} cy={cy} r={R - 78} fill="none" stroke="#b45309" strokeWidth="0.5" opacity="0.5" />
-
-        {/* Hour numbers */}
-        {[12,1,2,3,4,5,6,7,8,9,10,11].map((num, i) => {
-          const pos = polar(i * 30, R - 93);
-          return (
-            <text key={num} x={pos.x} y={pos.y}
-              textAnchor="middle" dominantBaseline="middle"
-              fontSize="11" fill="#000000"
-              fontFamily="'Inter', sans-serif" fontWeight="600"
-            >
-              {num}
-            </text>
-          );
-        })}
-
-        {/* Hour hand */}
-        <path
-          d={handPath(hourDeg, 70, 14)}
-          stroke="#fbbf24" strokeWidth="5"
-          strokeLinecap="round"
-          filter="url(#glow)"
-        />
-
-        {/* Minute hand */}
-        <path
-          d={handPath(minDeg, 100, 16)}
-          stroke="#fef9c3" strokeWidth="3.5"
-          strokeLinecap="round"
-          filter="url(#glow)"
-        />
-
-        {/* Second hand */}
-        <path
-          d={handPath(secDeg, 115, 20)}
-          stroke="#f97316" strokeWidth="1.5"
-          strokeLinecap="round"
-          filter="url(#glow)"
-        />
-
-        {/* Center pivot */}
-        <circle cx={cx} cy={cy} r={7} fill="#fbbf24" filter="url(#glow)" />
-        <circle cx={cx} cy={cy} r={4} fill="#fef08a" />
-        <circle cx={cx} cy={cy} r={2} fill="#fbbf24" />
-      </svg>
-
-      {/* Digital time & date */}
-      <div style={{
-        marginTop: '16px',
-        textAlign: 'center',
-        background: 'rgba(109,40,217,0.15)',
-        border: '1px solid rgba(124,58,237,0.3)',
-        borderRadius: '12px',
-        padding: '12px 24px',
-        backdropFilter: 'blur(8px)',
-        width: '100%',
-        maxWidth: 420,
-      }}>
-        <div style={{
-          fontSize: '2rem',
-          fontWeight: 700,
-          color: '#fcd34d',
-          fontFamily: "'Inter', monospace",
-          letterSpacing: '0.1em',
-          textShadow: '0 0 20px rgba(252,211,77,0.5)',
-        }}>
-          {timeStr}
+            {/* Zodiac Symbols rotated with the wheel */}
+            {ZODIAC_SYMBOLS.map((sym, i) => {
+              const midAngle = i * 30 + 15;
+              const pos = polar(midAngle, R - 24);
+              const isActive = i === activeZodiac;
+              return (
+                <text
+                  key={i}
+                  x={pos.x} y={pos.y}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontSize="18"
+                  fill={isActive ? '#FFFFFF' : '#D4AF37'}
+                  className={isActive ? 'gold-text-glow' : ''}
+                  transform={`rotate(${midAngle + 90} ${pos.x} ${pos.y})`}
+                >
+                  {sym}
+                </text>
+              );
+            })}
+          </svg>
         </div>
-        <div style={{
-          fontSize: '0.8rem',
-          color: '#fde047',
-          marginTop: '4px',
-          fontFamily: "'Noto Sans Tamil', 'Latha', sans-serif",
-        }}>
-          {dateStr}
-        </div>
-      </div>
 
-      {/* Active Zodiac Badge */}
-      <div style={{
-        marginTop: '12px',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '8px',
-        background: 'rgba(251,191,36,0.12)',
-        border: '1px solid rgba(251,191,36,0.35)',
-        borderRadius: '999px',
-        padding: '6px 18px',
-      }}>
-        <span style={{ fontSize: '1.2rem' }}>{ZODIAC_SYMBOLS[activeZodiac]}</span>
-        <span style={{
-          fontFamily: "'Noto Sans Tamil', 'Latha', sans-serif",
-          color: '#fcd34d',
-          fontSize: '0.95rem',
-          fontWeight: 600,
-        }}>
-          {ZODIAC_TAMIL[activeZodiac]} ராசி நேரம்
-        </span>
+        {/* Static Inner Dashboard (Does not rotate) */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+          <div className="w-[60%] h-[60%] rounded-full bg-[rgba(15,23,42,0.85)] backdrop-blur-md border border-[rgba(212,175,55,0.4)] flex flex-col items-center justify-center premium-shadow relative">
+            
+            {/* Analog Clock Hands (Static SVG over the inner circle) */}
+            <svg viewBox="0 0 400 400" className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]">
+              {/* Hour hand */}
+              <path
+                d={handPath(hourDeg, 60, 15)}
+                stroke="#D4AF37" strokeWidth="6"
+                strokeLinecap="round"
+              />
+              {/* Minute hand */}
+              <path
+                d={handPath(minDeg, 85, 20)}
+                stroke="#FDE047" strokeWidth="4"
+                strokeLinecap="round"
+              />
+              {/* Second hand */}
+              <path
+                d={handPath(secDeg, 100, 25)}
+                stroke="#F97316" strokeWidth="2"
+                strokeLinecap="round"
+              />
+              {/* Center pivot */}
+              <circle cx={cx} cy={cy} r={6} fill="#D4AF37" />
+              <circle cx={cx} cy={cy} r={3} fill="#0F172A" />
+            </svg>
+
+            {/* Digital Time & Text (Pushed down slightly so hands are visible in center) */}
+            <div className="mt-24 flex flex-col items-center text-center">
+              <div className="text-base md:text-lg font-bold text-gold font-sans tracking-widest gold-text-glow opacity-80">
+                {timeStr}
+              </div>
+              <div className="text-[10px] text-gray-400 mt-0.5 font-tamil opacity-70">
+                {dateStr}
+              </div>
+            </div>
+            
+            {/* Current Zodiac Active Pill */}
+            <div className="absolute top-4 px-3 py-1 rounded-full border border-gold bg-[rgba(212,175,55,0.1)] flex items-center gap-1.5">
+              <span className="text-gold text-sm">{ZODIAC_SYMBOLS[activeZodiac]}</span>
+              <span className="text-gold font-bold text-xs font-tamil">{ZODIAC_TAMIL[activeZodiac]}</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );

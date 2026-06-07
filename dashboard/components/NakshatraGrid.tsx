@@ -1,56 +1,43 @@
 import { memo } from 'react';
-import Card from './Card';
 
 const nakshatras = [
-  'அஸ்விநி',
-  'பரணி',
-  'கார்த்திகை',
-  'ரோகிணி',
-  'முருகசுரூ',
-  'திருவாதிரை',
-  'புனர்பூ',
-  'பூசிக்',
-  'ஐலமுவால்',
-  'சிதிரை',
-  'சுவாதி',
-  'விசாகம்',
-  'அன்னம்',
-  'தூட்டம்',
-  'மிதுனம்',
-  'பூரம்',
-  'உத்திராடம்',
-  'திருவோனமம்',
-  'அவிதி',
-  'சதயம்',
-  'சித்திரை',
-  'மூலாதரம்',
-  'உத்திரம்',
-  'திருவிழை',
-  'விருச்சிகம்',
-  'அவதம்',
-  'எசேடு',
+  'அஸ்விநி', 'பரணி', 'கார்த்திகை', 'ரோகிணி', 'மிருகசீரிடம்', 'திருவாதிரை', 'புனர்பூசம்', 'பூசம்', 'ஆயில்யம்',
+  'மகம்', 'பூரம்', 'உத்திரம்', 'அஸ்தம்', 'சித்திரை', 'சுவாதி', 'விசாகம்', 'அனுஷம்', 'கேட்டை',
+  'மூலம்', 'பூராடம்', 'உத்திராடம்', 'திருவோணம்', 'அவிட்டம்', 'சதயம்', 'பூரட்டாதி', 'உத்திரட்டாதி', 'ரேவதி'
 ];
 
+const RULER_SYMBOLS = ["☋", "♀", "☀", "☾", "♂", "☊", "♃", "♄", "☿"];
+
 const NakshatraGrid = memo(function NakshatraGrid() {
-  // For demo we mark the first item as selected
   const selected = 'அஸ்விநி';
 
   return (
-    <Card>
-      <h3 className="font-tamil text-xl mb-3 text-white">27 Nakshatram</h3>
-      <div className="grid grid-cols-2 gap-2">
-        {nakshatras.map((n) => (
-          <button
-            key={n}
-            className={`rounded-lg py-2 px-3 text-sm font-tamil 
-              ${n === selected ? 'border-2 border-accentBlue bg-glassBg' : 'bg-yellow-100 text-black'}
-              hover:bg-glassBg hover:text-white transition-hover`}
-          >
-            {n}
-          </button>
-        ))}
+    <div className="w-full">
+      <div className="flex items-center justify-between mb-6 border-b border-[rgba(212,175,55,0.2)] pb-4">
+        <h2 className="font-tamil text-2xl font-bold text-gold gold-text-glow">27 நட்சத்திரங்கள்</h2>
       </div>
-    </Card>
+
+      <div className="flex flex-wrap gap-3">
+        {nakshatras.map((n, index) => {
+          const symbol = RULER_SYMBOLS[index % 9];
+          const isSelected = n === selected;
+
+          return (
+            <button
+              key={n}
+              className={`flex items-center gap-2 rounded-full py-2 px-4 text-sm font-tamil border transition-hover 
+                ${isSelected 
+                  ? 'border-gold bg-[rgba(212,175,55,0.15)] text-gold shadow-[0_0_15px_rgba(212,175,55,0.4)]' 
+                  : 'border-[rgba(255,255,255,0.1)] bg-[rgba(15,23,42,0.6)] text-gray-300 hover:border-gold hover:text-gold hover:-translate-y-0.5'
+                }`}
+            >
+              <span className={isSelected ? "text-lg text-gold drop-shadow-md" : "text-lg text-gray-400"}>{symbol}</span>
+              <span>{n}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
   );
 });
 
