@@ -26,15 +26,15 @@ const PanchangCard = memo(function PanchangCard() {
   return (
     <Card>
       <div className="flex items-center justify-between mb-4">
-        <button className="text-sm text-gray-400 hover:text-white transition-hover">←</button>
+        <button className="text-sm text-black hover:text-white transition-hover">←</button>
         <h2 className="font-tamil text-2xl text-white">{date}</h2>
-        <button className="text-sm text-gray-400 hover:text-white transition-hover">→</button>
+        <button className="text-sm text-black hover:text-white transition-hover">→</button>
       </div>
 
       <div className="grid grid-cols-2 gap-2 mb-4">
         {details.map((d) => (
           <div key={d.label} className="flex flex-col">
-            <span className="text-sm text-gray-400">{d.label}</span>
+            <span className="text-sm text-black">{d.label}</span>
             <span className="font-bold text-white">{d.value}</span>
           </div>
         ))}
@@ -43,7 +43,7 @@ const PanchangCard = memo(function PanchangCard() {
       <div className="grid grid-cols-2 gap-2 mb-4">
         {timings.map((t) => (
           <Card key={t.label}>
-            <span className="text-sm text-gray-400">{t.label}</span>
+            <span className="text-sm text-black">{t.label}</span>
             <p className="font-bold text-white">{t.value}</p>
           </Card>
         ))}
@@ -52,7 +52,7 @@ const PanchangCard = memo(function PanchangCard() {
       <div className="grid grid-cols-2 gap-2">
         {auspicious.map((a) => (
           <Card key={a.label}>
-            <span className="text-sm text-gray-400">{a.label}</span>
+            <span className="text-sm text-black">{a.label}</span>
             <p className="font-bold text-white">{a.value}</p>
           </Card>
         ))}

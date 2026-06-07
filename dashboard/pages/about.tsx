@@ -29,17 +29,14 @@ export default function About() {
         <title>About Us - MyAstroLabs</title>
       </Head>
 
-      <div
-        className="fixed inset-0 bg-cover bg-center z-0 particle-bg"
-        style={{ backgroundImage: "url('/bg.jpg')" }}
-      />
+      <div className="fixed inset-0 bg-cover bg-center z-0 particle-bg" />
 
       <Header />
 
-      <main className="min-h-screen pt-12 pb-16 px-4 sm:px-8 max-w-6xl mx-auto space-y-16 relative z-10 text-white">
+      <main className="min-h-screen pt-12 pb-16 px-4 sm:px-8 max-w-6xl mx-auto space-y-16 relative z-10 text-black">
         
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-yellow-400 mb-6 font-tamil drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-6 font-tamil">
             எங்களை பற்றி (About Us)
           </h1>
         </div>
@@ -51,15 +48,15 @@ export default function About() {
         ) : (
           <>
             {sections.map((sec, index) => (
-              <section key={sec.id} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center bg-[#1a0845]/80 backdrop-blur-md border border-purple-500/30 rounded-2xl p-8 shadow-2xl`}>
+              <section key={sec.id} className={`flex flex-col ${index % 2 === 1 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 items-center bg-white rounded-2xl shadow-xl border border-orange-200 p-8`}>
                 {sec.image_url && (
                   <div className="w-full md:w-1/2 flex justify-center">
-                    <img src={sec.image_url} alt={sec.title} className="w-full h-auto rounded-xl shadow-2xl object-cover max-h-[400px] border border-yellow-500/20" />
+                    <img src={sec.image_url} alt={sec.title} className="w-full h-auto rounded-xl shadow-lg object-cover max-h-[400px] border border-orange-200" />
                   </div>
                 )}
                 <div className={`w-full ${sec.image_url ? 'md:w-1/2' : 'max-w-3xl mx-auto text-center'}`}>
-                  <h2 className="text-3xl font-bold text-yellow-400 mb-6 font-tamil">{sec.title}</h2>
-                  <div className="prose prose-invert prose-lg text-gray-300 whitespace-pre-wrap font-medium leading-relaxed">
+                  <h2 className="text-3xl font-bold text-black mb-6 font-tamil">{sec.title}</h2>
+                  <div className="prose prose-lg text-black whitespace-pre-wrap font-medium leading-relaxed">
                     {sec.content}
                   </div>
                 </div>
@@ -67,7 +64,7 @@ export default function About() {
             ))}
 
             {sections.length === 0 && (
-              <div className="text-center text-gray-400 py-12">
+              <div className="text-center text-black py-12">
                 Information is currently being updated.
               </div>
             )}

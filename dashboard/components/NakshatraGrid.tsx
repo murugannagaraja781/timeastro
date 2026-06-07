@@ -43,7 +43,7 @@ const NakshatraGrid = memo(function NakshatraGrid() {
           <button
             key={n}
             className={`rounded-lg py-2 px-3 text-sm font-tamil 
-              ${n === selected ? 'border-2 border-accentBlue bg-glassBg' : 'bg-gray-800 text-gray-300'}
+              ${n === selected ? 'border-2 border-accentBlue bg-glassBg' : 'bg-yellow-100 text-black'}
               hover:bg-glassBg hover:text-white transition-hover`}
           >
             {n}

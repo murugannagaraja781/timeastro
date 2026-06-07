@@ -43,12 +43,12 @@ const ClockCard = memo(function ClockCard() {
           width: 420,
           height: 420,
           borderRadius: '50%',
-          background: 'radial-gradient(ellipse at 40% 40%, #1a1060, #040212)',
-          border: '3px solid #4c2d8a',
+          background: 'radial-gradient(ellipse at 40% 40%, #fef08a, #f59e0b)',
+          border: '3px solid #d97706',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#7c3aed',
+          color: '#fbbf24',
           fontSize: '0.9rem',
         }}>
           நேரம் ஏற்றுகிறது...
@@ -113,12 +113,12 @@ const ClockCard = memo(function ClockCard() {
       >
         <defs>
           <radialGradient id="bgGrad" cx="50%" cy="40%" r="60%">
-            <stop offset="0%" stopColor="#1a1060" />
-            <stop offset="100%" stopColor="#040212" />
+            <stop offset="0%" stopColor="#fef08a" />
+            <stop offset="100%" stopColor="#f59e0b" />
           </radialGradient>
           <radialGradient id="innerGrad" cx="50%" cy="40%" r="70%">
-            <stop offset="0%" stopColor="#0d0830" />
-            <stop offset="100%" stopColor="#020110" />
+            <stop offset="0%" stopColor="#fef08a" />
+            <stop offset="100%" stopColor="#f59e0b" />
           </radialGradient>
           <filter id="glow">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -131,11 +131,11 @@ const ClockCard = memo(function ClockCard() {
         </defs>
 
         {/* Outer ring background */}
-        <circle cx={cx} cy={cy} r={R} fill="url(#bgGrad)" stroke="#4c2d8a" strokeWidth="3" />
+        <circle cx={cx} cy={cy} r={R} fill="url(#bgGrad)" stroke="#d97706" strokeWidth="3" />
 
         {/* Decorative outer ring */}
-        <circle cx={cx} cy={cy} r={R - 2} fill="none" stroke="#7c3aed" strokeWidth="1" opacity="0.4" />
-        <circle cx={cx} cy={cy} r={R - 8} fill="none" stroke="#6d28d9" strokeWidth="0.5" opacity="0.3" />
+        <circle cx={cx} cy={cy} r={R - 2} fill="none" stroke="#fbbf24" strokeWidth="1" opacity="0.4" />
+        <circle cx={cx} cy={cy} r={R - 8} fill="none" stroke="orange" strokeWidth="0.5" opacity="0.3" />
 
         {/* Zodiac segment arcs (12 segments) */}
         {ZODIAC_TAMIL.map((_, i) => {
@@ -153,7 +153,7 @@ const ClockCard = memo(function ClockCard() {
               key={i}
               d={`M ${s1.x} ${s1.y} A ${r1} ${r1} 0 0 1 ${e1.x} ${e1.y} L ${e2.x} ${e2.y} A ${r2} ${r2} 0 0 0 ${s2.x} ${s2.y} Z`}
               fill={isActive ? 'rgba(250,204,21,0.18)' : 'rgba(109,40,217,0.07)'}
-              stroke={isActive ? '#fbbf24' : '#5b21b6'}
+              stroke={isActive ? '#fbbf24' : '#d97706'}
               strokeWidth={isActive ? 1.5 : 0.5}
             />
           );
@@ -166,7 +166,7 @@ const ClockCard = memo(function ClockCard() {
           const p2 = polar(a, R - 20);
           return (
             <line key={i} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y}
-              stroke="#7c3aed" strokeWidth="2" />
+              stroke="#fbbf24" strokeWidth="2" />
           );
         })}
 
@@ -178,7 +178,7 @@ const ClockCard = memo(function ClockCard() {
           const p2 = polar(a, R - 16);
           return (
             <line key={i} x1={p1.x} y1={p1.y} x2={p2.x} y2={p2.y}
-              stroke="#4c1d95" strokeWidth="1" opacity="0.6" />
+              stroke="#b45309" strokeWidth="1" opacity="0.6" />
           );
         })}
 
@@ -194,7 +194,7 @@ const ClockCard = memo(function ClockCard() {
               textAnchor="middle"
               dominantBaseline="middle"
               fontSize="10"
-              fill={isActive ? '#fcd34d' : '#a78bfa'}
+              fill={isActive ? '#fcd34d' : '#fde047'}
               fontFamily="'Noto Sans Tamil', 'Latha', sans-serif"
               filter={isActive ? 'url(#glow)' : undefined}
               style={{ fontWeight: isActive ? 'bold' : 'normal' }}
@@ -216,7 +216,7 @@ const ClockCard = memo(function ClockCard() {
               textAnchor="middle"
               dominantBaseline="middle"
               fontSize="13"
-              fill={isActive ? '#fbbf24' : '#7c3aed'}
+              fill={isActive ? '#fbbf24' : '#fbbf24'}
               filter={isActive ? 'url(#strongGlow)' : undefined}
             >
               {sym}
@@ -225,8 +225,8 @@ const ClockCard = memo(function ClockCard() {
         })}
 
         {/* Inner decorative circles */}
-        <circle cx={cx} cy={cy} r={R - 75} fill="url(#innerGrad)" stroke="#6d28d9" strokeWidth="1.5" />
-        <circle cx={cx} cy={cy} r={R - 78} fill="none" stroke="#4c1d95" strokeWidth="0.5" opacity="0.5" />
+        <circle cx={cx} cy={cy} r={R - 75} fill="url(#innerGrad)" stroke="orange" strokeWidth="1.5" />
+        <circle cx={cx} cy={cy} r={R - 78} fill="none" stroke="#b45309" strokeWidth="0.5" opacity="0.5" />
 
         {/* Hour numbers */}
         {[12,1,2,3,4,5,6,7,8,9,10,11].map((num, i) => {
@@ -234,7 +234,7 @@ const ClockCard = memo(function ClockCard() {
           return (
             <text key={num} x={pos.x} y={pos.y}
               textAnchor="middle" dominantBaseline="middle"
-              fontSize="11" fill="#c4b5fd"
+              fontSize="11" fill="#000000"
               fontFamily="'Inter', sans-serif" fontWeight="600"
             >
               {num}
@@ -253,7 +253,7 @@ const ClockCard = memo(function ClockCard() {
         {/* Minute hand */}
         <path
           d={handPath(minDeg, 100, 16)}
-          stroke="#e2e8f0" strokeWidth="3.5"
+          stroke="#fef9c3" strokeWidth="3.5"
           strokeLinecap="round"
           filter="url(#glow)"
         />
@@ -261,14 +261,14 @@ const ClockCard = memo(function ClockCard() {
         {/* Second hand */}
         <path
           d={handPath(secDeg, 115, 20)}
-          stroke="#f87171" strokeWidth="1.5"
+          stroke="#f97316" strokeWidth="1.5"
           strokeLinecap="round"
           filter="url(#glow)"
         />
 
         {/* Center pivot */}
         <circle cx={cx} cy={cy} r={7} fill="#fbbf24" filter="url(#glow)" />
-        <circle cx={cx} cy={cy} r={4} fill="#1a1060" />
+        <circle cx={cx} cy={cy} r={4} fill="#fef08a" />
         <circle cx={cx} cy={cy} r={2} fill="#fbbf24" />
       </svg>
 
@@ -296,7 +296,7 @@ const ClockCard = memo(function ClockCard() {
         </div>
         <div style={{
           fontSize: '0.8rem',
-          color: '#a78bfa',
+          color: '#fde047',
           marginTop: '4px',
           fontFamily: "'Noto Sans Tamil', 'Latha', sans-serif",
         }}>

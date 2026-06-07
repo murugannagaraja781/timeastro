@@ -66,7 +66,7 @@ export default function AdminDashboard() {
     setDebugMsg('Fetching ' + tab + '...');
     sendLog('Fetching ' + tab + '...');
     try {
-      const ep = tab === 'settings' ? null : `/api/admin/${tab}.php`;
+      const ep = tab === 'settings' ? null : `http://localhost/timeastro/api/admin/${tab}.php`;
       if (ep) {
         const res = await fetch(ep, { 
           headers: getHeaders(),
@@ -206,63 +206,63 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-white flex">
       <Head><title>Admin Dashboard - MyAstroLabs</title></Head>
 
       {/* Sidebar */}
-      <div className="w-64 bg-indigo-900 text-white flex flex-col">
-        <div className="p-6 border-b border-indigo-800">
+      <div className="w-64 bg-orange-500 text-white flex flex-col">
+        <div className="p-6 border-b border-orange-500">
           <h1 className="text-xl font-bold">Super Admin</h1>
-          <p className="text-sm text-indigo-300">Welcome, {adminUsername}</p>
+          <p className="text-sm text-black">Welcome, {adminUsername}</p>
         </div>
         <nav className="flex-1 p-4 space-y-2">
           {['users', 'courses', 'about', 'offers', 'settings'].map(tab => (
-            <button key={tab} onClick={() => { setActiveTab(tab); fetchData(tab); }} className={`w-full text-left px-4 py-2 rounded capitalize ${activeTab === tab ? 'bg-indigo-800 text-white' : 'text-indigo-200 hover:bg-indigo-800'}`}>
+            <button key={tab} onClick={() => { setActiveTab(tab); fetchData(tab); }} className={`w-full text-left px-4 py-2 rounded capitalize ${activeTab === tab ? 'bg-orange-500 text-white' : 'text-black hover:bg-orange-500'}`}>
               {tab === 'users' ? 'Waiting for Approval' : tab === 'about' ? 'About Page' : tab === 'offers' ? 'Offers/Softer Menu' : tab}
             </button>
           ))}
         </nav>
-        <div className="p-4 border-t border-indigo-800">
-          <button onClick={handleLogout} className="w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Logout</button>
+        <div className="p-4 border-t border-orange-500">
+          <button onClick={handleLogout} className="w-full bg-orange-500 hover:bg-orange-500 text-white px-4 py-2 rounded">Logout</button>
         </div>
       </div>
 
       {/* Main Content */}
       <div className="flex-1 p-8 text-black overflow-y-auto h-screen">
         {debugMsg && (
-          <div className="bg-black text-green-400 p-2 mb-4 text-xs font-mono rounded shadow">
+          <div className="bg-black text-black p-2 mb-4 text-xs font-mono rounded shadow">
             DEBUG: {debugMsg}
           </div>
         )}
-        {loading && <p className="text-indigo-600 mb-4 font-bold">Loading...</p>}
+        {loading && <p className="text-black mb-4 font-bold">Loading...</p>}
         
         {/* Users Tab */}
         {activeTab === 'users' && (
           <div>
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold">User Approvals</h2>
-              <div className="flex items-center space-x-3 bg-white px-4 py-2 rounded-lg shadow border border-gray-100">
-                <span className="text-sm font-medium text-gray-700">Auto Approve New Signups:</span>
+              <div className="flex items-center space-x-3 bg-white px-4 py-2 rounded-lg shadow border border-orange-200">
+                <span className="text-sm font-medium text-black">Auto Approve New Signups:</span>
                 <button 
                   onClick={handleToggleAutoApprove}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${autoApprove === '1' ? 'bg-green-500' : 'bg-gray-300'}`}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${autoApprove === '1' ? 'bg-orange-500' : 'bg-white'}`}
                 >
                   <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${autoApprove === '1' ? 'translate-x-6' : 'translate-x-1'}`} />
                 </button>
-                <span className="text-xs text-gray-500 w-8">{autoApprove === '1' ? 'ON' : 'OFF'}</span>
+                <span className="text-xs text-black w-8">{autoApprove === '1' ? 'ON' : 'OFF'}</span>
               </div>
             </div>
 
             <div className="mb-8">
               {debugMsg && (
-                <div className="bg-black text-green-400 p-4 mb-4 font-mono text-lg font-bold border-4 border-red-500 shadow-xl">
+                <div className="bg-black text-black p-4 mb-4 font-mono text-lg font-bold border-4 border-orange-500 shadow-xl">
                   {debugMsg} <br/>
                   Total Users State Count: {users ? users.length : 0}
                 </div>
               )}
               <div className="flex justify-between items-center mb-3">
                 <h3 className="text-lg font-bold text-yellow-600">Waiting for Approval</h3>
-                <button onClick={() => fetchData('users')} className="text-sm bg-blue-100 hover:bg-blue-200 text-blue-700 px-3 py-1 rounded shadow-sm">
+                <button onClick={() => fetchData('users')} className="text-sm bg-orange-500 hover:bg-orange-500 text-black px-3 py-1 rounded shadow-sm">
                   Refresh List
                 </button>
               </div>
@@ -274,33 +274,33 @@ export default function AdminDashboard() {
                       <div key={user.id} className="border-b pb-4 mb-4 flex justify-between items-center">
                         <div>
                           <p className="font-bold text-lg">{user.first_name} {user.last_name}</p>
-                          <p className="text-gray-600">{user.email} | {user.mobile}</p>
+                          <p className="text-black">{user.email} | {user.mobile}</p>
                           <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Pending Approval</span>
                         </div>
                         <div className="space-x-2">
-                          <button onClick={() => handleApproveRejectUser(user.id, 'approve')} className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Approve</button>
-                          <button onClick={() => handleApproveRejectUser(user.id, 'reject')} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Reject</button>
+                          <button onClick={() => handleApproveRejectUser(user.id, 'approve')} className="bg-orange-500 hover:bg-orange-500 text-white px-4 py-2 rounded">Approve</button>
+                          <button onClick={() => handleApproveRejectUser(user.id, 'reject')} className="bg-orange-500 hover:bg-orange-500 text-white px-4 py-2 rounded">Reject</button>
                         </div>
                       </div>
                     )
                   ))
                 ) : (
-                  <p className="text-gray-500">Loading users or no users found.</p>
+                  <p className="text-black">Loading users or no users found.</p>
                 )}
                 {users && users.filter(u => u.status === 'pending').length === 0 && users.length > 0 && (
-                  <p className="text-gray-500">No pending approvals found.</p>
+                  <p className="text-black">No pending approvals found.</p>
                 )}
               </div>
             </div>
 
             <div>
-              <h3 className="text-lg font-bold mb-3 text-gray-700">All Users (Approved/Rejected)</h3>
+              <h3 className="text-lg font-bold mb-3 text-black">All Users (Approved/Rejected)</h3>
               <div className="bg-white shadow rounded-lg p-6">
                 {users && users.map(user => (
                   user.status !== 'pending' && (
                     <div key={user.id} className="border-b pb-4 mb-4">
                       <p className="font-bold">{user.first_name} {user.last_name}</p>
-                      <p className="text-gray-600">{user.email} | Status: <strong className={user.status === 'approved' ? 'text-green-600' : 'text-red-600'}>{user.status}</strong></p>
+                      <p className="text-black">{user.email} | Status: <strong className={user.status === 'approved' ? 'text-black' : 'text-black'}>{user.status}</strong></p>
                     </div>
                   )
                 ))}
@@ -314,20 +314,20 @@ export default function AdminDashboard() {
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">Manage Courses</h2>
-              <button onClick={() => openModal('courses')} className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add New Course</button>
+              <button onClick={() => openModal('courses')} className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-500">Add New Course</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {courses.map(course => (
                 <div key={course.id} className="bg-white p-4 rounded-lg shadow">
                   {course.image_url && <img src={course.image_url} alt={course.title} className="w-full h-40 object-cover rounded mb-4" />}
                   <h3 className="font-bold text-lg">{course.title}</h3>
-                  <p className="text-sm text-gray-500 mb-2">{course.category} | {course.duration} | ₹{course.price}</p>
-                  <p className="text-sm text-gray-700 line-clamp-3 mb-4">{course.description}</p>
+                  <p className="text-sm text-black mb-2">{course.category} | {course.duration} | ₹{course.price}</p>
+                  <p className="text-sm text-black line-clamp-3 mb-4">{course.description}</p>
                   <div className="flex justify-between border-t pt-3">
-                    <span className={`text-xs px-2 py-1 rounded ${course.is_active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>{course.is_active ? 'Active' : 'Inactive'}</span>
+                    <span className={`text-xs px-2 py-1 rounded ${course.is_active ? 'bg-orange-500 text-black' : 'bg-white text-black'}`}>{course.is_active ? 'Active' : 'Inactive'}</span>
                     <div className="space-x-2">
-                      <button onClick={() => openModal('courses', course)} className="text-indigo-600 text-sm hover:underline">Edit</button>
-                      <button onClick={() => handleDelete(course.id, 'courses')} className="text-red-600 text-sm hover:underline">Delete</button>
+                      <button onClick={() => openModal('courses', course)} className="text-black text-sm hover:underline">Edit</button>
+                      <button onClick={() => handleDelete(course.id, 'courses')} className="text-black text-sm hover:underline">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -341,7 +341,7 @@ export default function AdminDashboard() {
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">Manage About Page Sections</h2>
-              <button onClick={() => openModal('about')} className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add Section</button>
+              <button onClick={() => openModal('about')} className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-500">Add Section</button>
             </div>
             <div className="space-y-4">
               {aboutSections.map(sec => (
@@ -349,10 +349,10 @@ export default function AdminDashboard() {
                   {sec.image_url && <img src={sec.image_url} alt={sec.title} className="w-32 h-32 object-cover rounded" />}
                   <div className="flex-1">
                     <div className="flex justify-between">
-                      <h3 className="font-bold text-lg">{sec.title} <span className="text-xs font-normal text-gray-400">({sec.section_key})</span></h3>
-                      <button onClick={() => openModal('about', sec)} className="text-indigo-600 text-sm hover:underline">Edit</button>
+                      <h3 className="font-bold text-lg">{sec.title} <span className="text-xs font-normal text-black">({sec.section_key})</span></h3>
+                      <button onClick={() => openModal('about', sec)} className="text-black text-sm hover:underline">Edit</button>
                     </div>
-                    <p className="text-gray-700 mt-2 whitespace-pre-wrap">{sec.content}</p>
+                    <p className="text-black mt-2 whitespace-pre-wrap">{sec.content}</p>
                   </div>
                 </div>
               ))}
@@ -365,7 +365,7 @@ export default function AdminDashboard() {
           <div>
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold">Manage Offers & Softer Menu</h2>
-              <button onClick={() => openModal('offers')} className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700">Add Offer</button>
+              <button onClick={() => openModal('offers')} className="bg-orange-500 text-white px-4 py-2 rounded shadow hover:bg-orange-500">Add Offer</button>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {offers.map(offer => (
@@ -373,13 +373,13 @@ export default function AdminDashboard() {
                   {offer.image_url && <img src={offer.image_url} alt={offer.title} className="w-24 h-24 object-cover rounded" />}
                   <div className="flex-1">
                     <h3 className="font-bold">{offer.title}</h3>
-                    {offer.badge && <span className="text-xs bg-red-100 text-red-600 px-1 py-0.5 rounded">{offer.badge}</span>}
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{offer.description}</p>
+                    {offer.badge && <span className="text-xs bg-orange-500 text-black px-1 py-0.5 rounded">{offer.badge}</span>}
+                    <p className="text-sm text-black mt-1 line-clamp-2">{offer.description}</p>
                     <div className="flex justify-between items-center mt-3 border-t pt-2">
-                      <span className="text-xs text-blue-600 truncate max-w-[150px]">{offer.link}</span>
+                      <span className="text-xs text-black truncate max-w-[150px]">{offer.link}</span>
                       <div className="space-x-2">
-                        <button onClick={() => openModal('offers', offer)} className="text-indigo-600 text-sm hover:underline">Edit</button>
-                        <button onClick={() => handleDelete(offer.id, 'offers')} className="text-red-600 text-sm hover:underline">Delete</button>
+                        <button onClick={() => openModal('offers', offer)} className="text-black text-sm hover:underline">Edit</button>
+                        <button onClick={() => handleDelete(offer.id, 'offers')} className="text-black text-sm hover:underline">Delete</button>
                       </div>
                     </div>
                   </div>
@@ -398,14 +398,14 @@ export default function AdminDashboard() {
                 <h3 className="text-lg font-medium mb-4 border-b pb-2">Change Password</h3>
                 <form onSubmit={handleChangePassword} className="space-y-4">
                   <div>
-                    <label className="block text-sm text-gray-700">Old Password</label>
-                    <input type="password" required value={passwordForm.old_password} onChange={e => setPasswordForm({...passwordForm, old_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-indigo-500" />
+                    <label className="block text-sm text-black">Old Password</label>
+                    <input type="password" required value={passwordForm.old_password} onChange={e => setPasswordForm({...passwordForm, old_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-orange-500-500" />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-700">New Password</label>
-                    <input type="password" required value={passwordForm.new_password} onChange={e => setPasswordForm({...passwordForm, new_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-indigo-500" />
+                    <label className="block text-sm text-black">New Password</label>
+                    <input type="password" required value={passwordForm.new_password} onChange={e => setPasswordForm({...passwordForm, new_password: e.target.value})} className="w-full border p-2 rounded mt-1 outline-none focus:border-orange-500-500" />
                   </div>
-                  <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Update Password</button>
+                  <button type="submit" className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-500">Update Password</button>
                 </form>
               </div>
             </div>
@@ -417,16 +417,16 @@ export default function AdminDashboard() {
                   <h3 className="text-lg font-medium mb-2 border-b pb-2">Site Title & Logo</h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm text-gray-700">Site Title</label>
+                      <label className="block text-sm text-black">Site Title</label>
                       <input 
                         type="text" 
                         value={siteTitle} 
                         onChange={e => setSiteTitle(e.target.value)} 
-                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                        className="w-full border p-2 rounded outline-none focus:border-orange-500-500 mt-1" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-700 mb-1">Site Logo</label>
+                      <label className="block text-sm text-black mb-1">Site Logo</label>
                       <div className="flex items-center gap-4">
                         {siteLogoPreview && <img src={siteLogoPreview} alt="Logo Preview" className="w-12 h-12 rounded-full object-cover border" />}
                         <input 
@@ -458,7 +458,7 @@ export default function AdminDashboard() {
                           alert(data.message || 'Site Title & Logo Saved!');
                         } catch (err) { alert('Error saving site settings'); }
                       }}
-                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+                      className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-500 text-sm"
                     >
                       Save Branding
                     </button>
@@ -467,14 +467,14 @@ export default function AdminDashboard() {
 
                 <div className="pt-4 border-t">
                   <h3 className="text-lg font-medium mb-2 border-b pb-2">Course Enrollment WhatsApp</h3>
-                  <p className="text-sm text-gray-600 mb-3">When a user clicks "Enroll Now", they will be redirected to this WhatsApp number.</p>
+                  <p className="text-sm text-black mb-3">When a user clicks "Enroll Now", they will be redirected to this WhatsApp number.</p>
                   <div className="flex gap-2">
                     <input 
                       type="text" 
                       value={enrollWhatsapp} 
                       onChange={e => setEnrollWhatsapp(e.target.value)} 
                       placeholder="e.g. 919876543210" 
-                      className="flex-1 border p-2 rounded outline-none focus:border-indigo-500" 
+                      className="flex-1 border p-2 rounded outline-none focus:border-orange-500-500" 
                     />
                     <button 
                       onClick={async () => {
@@ -488,7 +488,7 @@ export default function AdminDashboard() {
                           alert(data.message || 'WhatsApp Number Saved!');
                         } catch (err) { alert('Error saving WhatsApp number'); }
                       }}
-                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+                      className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-500 text-sm"
                     >
                       Save Number
                     </button>
@@ -499,29 +499,29 @@ export default function AdminDashboard() {
                   <h3 className="text-lg font-medium mb-2 border-b pb-2">Contact Details</h3>
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm text-gray-700">Contact Number</label>
+                      <label className="block text-sm text-black">Contact Number</label>
                       <input 
                         type="text" 
                         value={contactNumber} 
                         onChange={e => setContactNumber(e.target.value)} 
-                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                        className="w-full border p-2 rounded outline-none focus:border-orange-500-500 mt-1" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-700">Email Address</label>
+                      <label className="block text-sm text-black">Email Address</label>
                       <input 
                         type="email" 
                         value={contactEmail} 
                         onChange={e => setContactEmail(e.target.value)} 
-                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                        className="w-full border p-2 rounded outline-none focus:border-orange-500-500 mt-1" 
                       />
                     </div>
                     <div>
-                      <label className="block text-sm text-gray-700">Physical Address</label>
+                      <label className="block text-sm text-black">Physical Address</label>
                       <textarea 
                         value={contactAddress} 
                         onChange={e => setContactAddress(e.target.value)} 
-                        className="w-full border p-2 rounded outline-none focus:border-indigo-500 mt-1" 
+                        className="w-full border p-2 rounded outline-none focus:border-orange-500-500 mt-1" 
                         rows={2}
                       />
                     </div>
@@ -541,7 +541,7 @@ export default function AdminDashboard() {
                           alert(data.message || 'Contact Details Saved!');
                         } catch (err) { alert('Error saving contact details'); }
                       }}
-                      className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 text-sm"
+                      className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-500 text-sm"
                     >
                       Save Contact Details
                     </button>
@@ -602,15 +602,15 @@ export default function AdminDashboard() {
               {['courses', 'offers'].includes(modalType) && (
                 <div>
                   <label className="flex items-center space-x-2 cursor-pointer">
-                    <input type="checkbox" name="is_active" value="1" defaultChecked={editItem ? editItem.is_active === 1 : true} className="rounded text-indigo-600 focus:ring-indigo-500" />
+                    <input type="checkbox" name="is_active" value="1" defaultChecked={editItem ? editItem.is_active === 1 : true} className="rounded text-black focus:ring-orange-500-500" />
                     <span className="text-sm">Active / Show on Website</span>
                   </label>
                 </div>
               )}
 
               <div className="flex justify-end space-x-3 pt-4 border-t">
-                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border rounded text-gray-600 hover:bg-gray-100">Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700">Save</button>
+                <button type="button" onClick={() => setShowModal(false)} className="px-4 py-2 border rounded text-black hover:bg-white">Cancel</button>
+                <button type="submit" className="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-500">Save</button>
               </div>
             </form>
           </div>

@@ -28,19 +28,19 @@ const TimeInfoPanel = memo(function TimeInfoPanel() {
   return (
     <div className="mt-6 grid grid-cols-2 gap-4">
       <Card>
-        <p className="text-sm text-gray-300">Current Time:</p>
+        <p className="text-sm text-black">Current Time:</p>
         <p className="font-bold text-white">{timeString ?? '--:--:--'}</p>
       </Card>
       <Card>
-        <p className="text-sm text-gray-300">Location:</p>
+        <p className="text-sm text-black">Location:</p>
         <p className="font-bold text-white">{location}</p>
       </Card>
       <Card>
-        <p className="text-sm text-gray-300">Sunrise:</p>
+        <p className="text-sm text-black">Sunrise:</p>
         <p className="font-bold text-white">{sunrise}</p>
       </Card>
       <Card>
-        <p className="text-sm text-gray-300">Timezone:</p>
+        <p className="text-sm text-black">Timezone:</p>
         <p className="font-bold text-white">{timezone}</p>
       </Card>
     </div>

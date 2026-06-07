@@ -53,40 +53,40 @@ export default function AdminLogin() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0520] text-gray-800 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#ffffff] text-black flex items-center justify-center p-4">
       <Head>
         <title>Super Admin Login - MyAstroLabs</title>
       </Head>
 
       <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-purple-500 to-indigo-600"></div>
+        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-yellow-500"></div>
         
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Super Admin Portal</h1>
-          <p className="text-sm text-gray-500 mt-2">Sign in to manage the platform</p>
+          <h1 className="text-2xl font-bold text-black">Super Admin Portal</h1>
+          <p className="text-sm text-black mt-2">Sign in to manage the platform</p>
         </div>
 
-        {error && <div className="mb-4 p-3 bg-red-100 text-red-700 rounded text-center text-sm border border-red-200">{error}</div>}
-        {success && <div className="mb-4 p-3 bg-green-100 text-green-700 rounded text-center text-sm border border-green-200">{success}</div>}
+        {error && <div className="mb-4 p-3 bg-orange-500 text-black rounded text-center text-sm border border-orange-500">{error}</div>}
+        {success && <div className="mb-4 p-3 bg-orange-500 text-black rounded text-center text-sm border border-orange-500">{success}</div>}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Admin Username</label>
-            <input required type="text" name="username" value={formData.username} onChange={handleChange} className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all" placeholder="Enter username" />
+            <label className="block text-sm font-medium text-black mb-1">Admin Username</label>
+            <input required type="text" name="username" value={formData.username} onChange={handleChange} className="w-full border border-orange-200 rounded-lg p-3 focus:ring-2 focus:ring-orange-500-500 focus:border-orange-500-500 outline-none transition-all" placeholder="Enter username" />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input required type="password" name="password" value={formData.password} onChange={handleChange} className="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all" placeholder="Enter password" />
+            <label className="block text-sm font-medium text-black mb-1">Password</label>
+            <input required type="password" name="password" value={formData.password} onChange={handleChange} className="w-full border border-orange-200 rounded-lg p-3 focus:ring-2 focus:ring-orange-500-500 focus:border-orange-500-500 outline-none transition-all" placeholder="Enter password" />
           </div>
 
           <div className="pt-2">
-            <button type="submit" className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white py-3 rounded-lg font-medium transition-all shadow-lg shadow-purple-200 transform hover:-translate-y-0.5">
+            <button type="submit" className="w-full bg-gradient-to-r from-orange-400 to-yellow-500 hover:from-orange-400 hover:to-yellow-500 text-white py-3 rounded-lg font-medium transition-all shadow-lg shadow-orange-200 transform hover:-translate-y-0.5">
               SECURE LOGIN
             </button>
           </div>

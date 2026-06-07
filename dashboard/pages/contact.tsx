@@ -29,18 +29,15 @@ export default function ContactPage() {
       <Head>
         <title>Contact Us - {siteTitle}</title>
       </Head>
-      <div
-        className="fixed inset-0 bg-cover bg-center z-0 particle-bg"
-        style={{ backgroundImage: "url('/bg.jpg')" }}
-      />
+      <div className="fixed inset-0 bg-cover bg-center z-0 particle-bg" />
       <Header />
       
-      <main className="min-h-screen px-8 py-16 relative z-10 max-w-4xl mx-auto text-white">
+      <main className="min-h-screen px-4 md:px-8 py-16 relative z-10 max-w-4xl mx-auto text-black">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-bold text-yellow-400 mb-6 font-tamil drop-shadow-lg">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-6 font-tamil">
             எங்களை தொடர்பு கொள்ள (Contact Us)
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-black">
             Get in touch with {siteTitle} for astrological consultations, course inquiries, or technical support.
           </p>
         </div>
@@ -48,7 +45,7 @@ export default function ContactPage() {
         {loading ? (
           <div className="text-center text-xl">Loading contact details...</div>
         ) : (
-          <div className="bg-[#1a0845]/90 backdrop-blur-md border border-purple-500/50 rounded-2xl p-8 md:p-12 shadow-2xl space-y-12">
+          <div className="bg-white rounded-2xl shadow-xl border border-orange-200 p-8 md:p-12 space-y-12">
             
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
               <div className="bg-gradient-to-br from-yellow-400 to-yellow-600 p-4 rounded-full shadow-lg">
@@ -56,7 +53,7 @@ export default function ContactPage() {
               </div>
               <div className="text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-2">Phone Support</h3>
-                <p className="text-gray-300 text-lg">Call or WhatsApp us for instant guidance.</p>
+                <p className="text-black text-lg">Call or WhatsApp us for instant guidance.</p>
                 <a href={`tel:${contactNumber}`} className="text-yellow-400 text-xl font-bold hover:underline mt-2 inline-block">
                   {contactNumber || 'Not available'}
                 </a>
@@ -69,7 +66,7 @@ export default function ContactPage() {
               </div>
               <div className="text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-2">Email Inquiries</h3>
-                <p className="text-gray-300 text-lg">Send us a detailed message, and we'll reply within 24 hours.</p>
+                <p className="text-black text-lg">Send us a detailed message, and we'll reply within 24 hours.</p>
                 <a href={`mailto:${contactEmail}`} className="text-yellow-400 text-xl font-bold hover:underline mt-2 inline-block">
                   {contactEmail || 'Not available'}
                 </a>
@@ -82,7 +79,7 @@ export default function ContactPage() {
               </div>
               <div className="text-center md:text-left">
                 <h3 className="text-2xl font-bold mb-2">Our Office</h3>
-                <p className="text-gray-300 text-lg whitespace-pre-wrap">
+                <p className="text-black text-lg whitespace-pre-wrap">
                   {contactAddress || 'Not available'}
                 </p>
               </div>

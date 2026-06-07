@@ -21,28 +21,27 @@ export default function SoftwarePage() {
       <Head>
         <title>Software & Apps - MyAstroLabs</title>
       </Head>
-      <div
-        className="fixed inset-0 bg-cover bg-center z-0 particle-bg"
-        style={{ backgroundImage: "url('/bg.jpg')" }}
-      />
+      <div className="fixed inset-0 bg-cover bg-center z-0 particle-bg" />
       <Header />
       
-      <main className="min-h-screen px-8 py-12 relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-yellow-400 mb-4 font-tamil drop-shadow-lg">
+      <main className="min-h-screen px-4 md:px-8 py-12 relative z-10 max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-black mb-4 font-tamil">
             மென்பொருள் மற்றும் செயலிகள் (Software & Apps)
           </h1>
-          <p className="text-xl text-gray-300">
+          <p className="text-xl text-black">
             Explore our collection of premium astrology software and tools.
           </p>
         </div>
 
         {loading ? (
-          <div className="text-center text-white text-xl">Loading software list...</div>
+          <div className="flex justify-center items-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-orange-500"></div>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {apps.map(app => (
-              <div key={app.id} className="bg-[#1a0845]/90 backdrop-blur-md border border-purple-500/50 rounded-2xl overflow-hidden shadow-2xl hover:shadow-purple-500/20 transition-all hover:-translate-y-1 group">
+              <div key={app.id} className="bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col h-full border border-orange-200">
                 <div className="relative h-48 overflow-hidden">
                   <img 
                     src={app.image_url || app.image || 'https://picsum.photos/400/300?random=' + app.id} 
@@ -50,30 +49,32 @@ export default function SoftwarePage() {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   {app.badge && (
-                    <div className="absolute top-4 right-4 bg-gradient-to-r from-red-600 to-pink-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-lg">
+                    <div className="absolute top-4 right-4 bg-gradient-to-r from-orange-400 to-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full uppercase shadow-lg">
                       {app.badge}
                     </div>
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-yellow-400 transition-colors">
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="text-2xl font-bold text-black mb-3 group-hover:text-orange-600 transition-colors">
                     {app.title}
                   </h3>
-                  <p className="text-gray-300 mb-6 line-clamp-3">
+                  <p className="text-black mb-6 flex-grow line-clamp-3">
                     {app.description}
                   </p>
-                  <a 
-                    href={app.link || '#'} 
-                    className="block w-full text-center bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-400 hover:to-yellow-500 text-black font-bold py-3 rounded-xl transition-all shadow-lg hover:shadow-yellow-500/50"
-                  >
-                    View Details
-                  </a>
+                  <div className="mt-auto border-t border-orange-200 pt-4">
+                    <a 
+                      href={app.link || '#'} 
+                      className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-2.5 rounded-lg transition-colors"
+                    >
+                      View Details
+                    </a>
+                  </div>
                 </div>
               </div>
             ))}
             
             {apps.length === 0 && (
-              <div className="col-span-full text-center text-gray-400 py-12">
+              <div className="col-span-full text-center text-black py-12">
                 No software apps available right now. Please check back later.
               </div>
             )}
