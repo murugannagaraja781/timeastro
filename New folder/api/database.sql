@@ -1,7 +1,8 @@
 -- TimAstro Database Setup
--- Run this in phpMyAdmin inside your newly created database
+-- Run this in phpMyAdmin
 
--- Tables setup starts below
+CREATE DATABASE IF NOT EXISTS timeastro_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE timeastro_db;
 
 -- Admin table
 CREATE TABLE IF NOT EXISTS `admin` (
